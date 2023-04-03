@@ -72,6 +72,9 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  layout: "auth",
+});
 const showPassword = ref(false);
 const email = ref("");
 const password = ref("");
