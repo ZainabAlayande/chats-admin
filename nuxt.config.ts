@@ -5,7 +5,12 @@ export default defineNuxtConfig({
     "~/assets/styles/global.scss",
     "~/assets/styles/fonts.scss",
   ],
-
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
+  },
   terser: {
     terserOptions: {
       compress: {
