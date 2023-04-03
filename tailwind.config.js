@@ -15,6 +15,7 @@ module.exports = {
           blue: "#25396F",
           black: "#222222",
           green: "#17CE89",
+          red: "#E42C66",
           gray: "#7C8DB5",
           input: "#646A86",
           light: "#F5F6F8",
@@ -39,6 +40,6 @@ module.exports = {
         circular: "Circular, sans-serif",
         poppins: "Poppins, sans-serif",
       },
-    },
-  }, 
+    }, 
+  },   
 };

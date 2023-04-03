@@ -13,11 +13,11 @@
     }}</span>
   </button>
 </template>
-
+ 
 
 
 <script   setup >
-const props = defineProps({  
+const props = defineProps({   
     text: {
       type: String,
       default: "",
@@ -73,8 +73,9 @@ const props = defineProps({
     fontSize: {
       type: String,
       default: "0.875rem",
-    },
-  }, )
+    }, 
+  
+  }, ) 
 </script>
 
 <style lang="scss" scoped>
