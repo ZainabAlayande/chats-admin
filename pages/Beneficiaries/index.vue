@@ -1,7 +1,7 @@
-<template> 
+<template>
   <div class="mt-6">
-    <TablesBeneficiaries  />
-  </div> 
+    <TablesBeneficiaries />
+  </div>
 </template>
 
 <script setup lang="ts"> 
