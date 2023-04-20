@@ -3,11 +3,11 @@
     <div class="w-[27.5rem] block mx-auto my-10">
       <img
         src="~/assets/images/logo.svg"
-        class="m-auto h-[3.875rem]"
+        class="m-auto h-[3.875rem]      text  "
         alt="logo"
       />
 
-      <div class="mt-16 bg-white rounded-2xl box-shadow">
+      <div class="mt-16 bg-white   rounded-2xl box-shadow">
         <h3
           class="text-center text-2xl py-6 font-medium text-primary-blue border-b-[1px] border=[#FEFEFE]"
         >

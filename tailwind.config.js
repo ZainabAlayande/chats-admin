@@ -40,6 +40,6 @@ module.exports = {
         circular: "Circular, sans-serif",
         poppins: "Poppins, sans-serif",
       },
-    }, 
-  },   
+    },
+  },
 };
