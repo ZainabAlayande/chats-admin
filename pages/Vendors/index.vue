@@ -1,9 +1,9 @@
-<template>
-  <div class="flex bg-[#FAFAFA] justify-between">
-    Vendor
+<template> 
+    <div class="mt-6">
+      <!-- <TablesVendors /> -->
+      <TablesVendorsTransactions  />
   </div>
 </template>
 
 <script setup lang="ts"> 
 </script>
- 
