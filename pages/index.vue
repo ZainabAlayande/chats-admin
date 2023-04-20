@@ -1,4 +1,6 @@
 <template>
+    <pagination :numOfItemsPerPage="5" :currentPageNum="2" :totalNumOfItems="85" />
+
   <div class="flex bg-[#FAFAFA] min-h-screen justify-between items-center">
     <div class="w-[27.5rem] block mx-auto my-10">
       <img
@@ -68,6 +70,7 @@
         </form>
       </div>
     </div>
+
   </div>
 </template>
 

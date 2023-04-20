@@ -1,9 +1,6 @@
 <template>
-  <div>Settings</div>
+  <div> Settings </div>
 </template>
 
-<script setup lang="ts">
-definePageMeta({
-  layout: "dashboard",
-});
+<script setup lang="ts"> 
 </script>
