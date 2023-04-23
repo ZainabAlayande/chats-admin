@@ -1,11 +1,13 @@
 <template>
   <div>
+    <BreadCrumb/>
+    
     <div
       class="flex h-16 w-full items-center border-b pb-6 justify-between px-6 pb-"
     >
       <h3 class="font-bold text-4xl">Hakeem Mensah</h3>
 
-      <div class=" ">
+      <div class="">
         <Button
           :hasBorder="false"
           :hasIcon="false"
