@@ -29,30 +29,36 @@
             :class="index % 2 != 0 && 'bg-[#FCFCFE]'"
           >
             <td>
-            <nuxt-link :to="`ngos/${ donor.id}`"> 
-            {{ donor.name }}
-            </nuxt-link>
+              <nuxt-link :to="`ngos/${donor.id}`">
+                {{ donor.name }}
+              </nuxt-link>
             </td>
             <td>{{ donor.email }}</td>
             <td>{{ donor.total_donations }}</td>
             <td class="">{{ donor.ngo_campaign_ration }}</td>
-            <td> 
-            <span class="text-xs px-2 py-[.35rem] rounded-2xl capitalize" :class="donor.status == 'active' ? 'text-[#337138] bg-[#D1F7C4]' : 'text-[#3D435E] bg-[#E7EBF3]'"> {{ donor.status }} </span>
+            <td>
+              <span
+                class="text-xs px-2 py-[.35rem] rounded-2xl capitalize"
+                :class="
+                  donor.status == 'active'
+                    ? 'text-[#337138] bg-[#D1F7C4]'
+                    : 'text-[#3D435E] bg-[#E7EBF3]'
+                "
+              >
+                {{ donor.status }}
+              </span>
             </td>
 
-           
-
-            <td> 
-                <Button
-                  :hasBorder="true"
-                  :hasIcon="false" 
-                  :text="donor.status == 'active' ? 'Deactivate' : 'Activate'"
-                  :isGray="donor.status == 'active'"
-                  :disabled="donor.status == 'active'"
-                  class="text-[.875rem] !py-2 !px-3"
-                /> 
+            <td>
+              <Button
+                :hasBorder="true"
+                :hasIcon="false"
+                :text="donor.status == 'active' ? 'Deactivate' : 'Activate'"
+                :isGray="donor.status == 'active'"
+                :disabled="donor.status == 'active'"
+                class="text-[.875rem] !py-2 !px-3"
+              />
             </td>
- 
           </tr>
         </tbody>
       </table>
@@ -60,7 +66,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const headers = ref([
   { title: "Name" },
   { title: "Email address" },
@@ -127,7 +133,7 @@ const donors = ref([
     ngo_campaign_ration: "3 / 9",
     status: "active",
   },
-  
+
 ]);
 </script>
 
@@ -135,7 +141,10 @@ const donors = ref([
 .main {
   box-shadow: 0px 3.17px 19.8125px rgba(174, 174, 192, 0.15);
 }
-table >tbody > tr> td  {
-  @apply align-middle   text-base px-6 py-4 ;
+table > tbody > tr > td {
+  @apply align-middle text-center  mx-auto   text-base px-6 py-4;
+}
+table > tbody > tr > td:first-child {
+  @apply text-left;
 }
 </style>

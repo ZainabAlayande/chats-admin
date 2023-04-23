@@ -10,30 +10,17 @@
           <h2 class="font-bold mb-2">{{ auth.name }}</h2>
           <p class="text-sm text-primary-gray">{{ auth.description }}</p>
         </div>
-        
-        <label
-          class="my-toggle"
-          :for="auth.id"
-            >
-          <input
-            :id="auth.id" 
-            class="toggle-input"
-            type="checkbox" 
-          />
-          <div class="toggle-fill"></div>
-        </label>
+         
+        <Toggle/>
       </div>
  
       <div 
-        class="mt-4 flex w-full items-center justify-between rounded-3xl bg-primary-light px-4 py-3 text-sm text-primary-gray"
+        class="mt-4 flex w-full items-center justify-between rounded-3xl bg-primary-light px-4 pt-3 pb-2 text-sm text-primary-gray"
       >
-        <p>
-          <input 
-            disabled
-            type="checkbox"
-            class="mr-1 h-4 w-4 rounded-full text-primary-green"
-          />
-            Added {{ auth.date }}
+        <p class="flex items-center space-x-2">
+         <Checkbox/>
+         <span>    Added {{ auth.date }} </span>
+         
         </p>
 
         <p class="flex items-center text-sm font-medium text-primary-black">
