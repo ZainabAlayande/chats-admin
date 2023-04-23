@@ -1,11 +1,8 @@
 <template>
   <div>
-    
-    <div> 
-      <TablesCampaigns/>
-      
+    <div>
+      <TablesCampaigns />
     </div>
-    
   </div>
 </template>
 
