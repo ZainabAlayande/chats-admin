@@ -46,13 +46,13 @@
         class="px-8 block !w-full mb-5" 
       />
 
-      <Button
-        type="submit"
+      <Button 
         :has-icon="false"
         text="Cancel"
         custom-styles="height:50px; "
         :hasBorder="true"
         class="px-8 !w-full" 
+        @click="close"
       />
     </div>
   </form>
@@ -63,5 +63,7 @@
 const submitForm = () => {
   console.log('test')
 }
+const emit = defineEmits(['close'])
+const close = () => { emit("close") } 
 </script>
  
