@@ -28,11 +28,7 @@
             class="cursor-pointer"
             :class="index % 2 != 0 && 'bg-[#FCFCFE]'"
           >
-            <td>
-              <nuxt-link :to="`ngos/${donor.id}`">
-                {{ donor.name }}
-              </nuxt-link>
-            </td>
+            <td> {{ donor.name }} </td>
             <td>{{ donor.email }}</td>
             <td>{{ donor.total_donations }}</td>
             <td class="">{{ donor.ngo_campaign_ration }}</td>

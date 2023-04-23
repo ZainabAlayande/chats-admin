@@ -1,15 +1,4 @@
-<template>
-  <!-- <div class="flex bg-[#FAFAFA] justify-between"> 
-    <div  v-if="modalId == 'withhold_request'"> 
-      <Modal title="Withhold request" id="withhold_request" size="sm" :centered="false"  @close="closeModal" >
-        <DonorsWithholdRequest/>
-      </Modal>
-    </div>  -->
-
-  <!--  -->
-  <!-- <div class="flex w-auto"> 
-    <Button @click="openModal('withhold_request')" text="Withhold request"/>   -->
-
+<template> 
   <!-- Privacy Holder component -->
   <PartialsPrivacyHolder :hasCreateButton="false" />
 
