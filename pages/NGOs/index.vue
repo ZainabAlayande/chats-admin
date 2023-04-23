@@ -1,9 +1,9 @@
 <template>
-  <div class=" bg-[#FAFAFA]">
-    <div v-if="modalId == 'add_organization'">
+  <div>    
+    <div v-if="modalId == 'new_ngo'">
       <Modal
         title="Add Organization"
-        id="add_organization"
+        id="new_ngo"
         size="sm"
         :centered="false"
         @close="closeModal"
@@ -24,12 +24,14 @@
       </Modal>
     </div>
 
-    <!--  -->
-    <div class="flex w-auto mb-4">
-      <Button @click="openModal('add_organization')" text="Add Organization" />
-      <Button @click="openModal('create_new')" text="Create New" />
-  </div>
 
+      <!-- Privacy Holder component -->
+    <PartialsPrivacyHolder
+      createBtnText="Create new "
+      @create="openModal"
+    />
+
+ 
 
     <div class="flex items-center space-x-3">
       <span
@@ -56,10 +58,14 @@
 
 <script setup lang="ts"> 
 const modalId = ref('')
-const closeModal = (id: string) => { modalId.value = "" }
-const openModal = (id: string) => { modalId.value = id } 
-
 const activeTab = ref("active");
+
+const closeModal = (id: string) => { modalId.value = "" }
+const openModal = () => { 
+  if (activeTab.value == 'active') return modalId.value = 'new_ngo' 
+  if (activeTab.value == 'pending') return modalId.value = 'create_new' 
+} 
+
 const tabs = ref([
   { title: "Active", id: "active" },
   { title: "Pending approval", id: "pending" },

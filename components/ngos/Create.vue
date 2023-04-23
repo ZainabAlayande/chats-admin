@@ -2,16 +2,16 @@
   <div>
     <form @submit.prevent="addOrganization" class="mt-4 px-3 pb-2"> 
     <!-- Name Section here  here -->
-    <div class="grid grid-cols-3 justify-start  gap-6"> 
-      <div class="col-span-1"> 
+    <div class="grid grid-cols-5 justify-start  gap-8"> 
+      <div class="col-span-2"> 
         <div class=" border-4 mb-4 rounded-xl"> 
-          <img src="~/assets/images/profile-picture.svg" class="w-[12.25rem] h-[12.5rem] "/>
+          <img src="~/assets/images/profile-picture.svg" class="w-[12.25rem] h-[12.5rem] mx-auto "/>
         </div>
 
         <div class="font-bold text-[1.25rem] text-center"> Liveness capture </div>
       </div>
 
-    <div class="col-span-2 flex flex-col space-y-4"> 
+    <div class="col-span-3 flex flex-col space-y-4"> 
       <div class="">
         <label for="first-name" class="font-medium block text-base mb-2"> First Name </label>
         <input
