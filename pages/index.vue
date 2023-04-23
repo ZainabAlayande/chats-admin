@@ -1,15 +1,19 @@
 <template>
-    <pagination :numOfItemsPerPage="5" :currentPageNum="2" :totalNumOfItems="85" />
+  <pagination
+    :numOfItemsPerPage="5"
+    :currentPageNum="2"
+    :totalNumOfItems="85"
+  />
 
   <div class="flex bg-[#FAFAFA] min-h-screen justify-between items-center">
     <div class="w-[27.5rem] block mx-auto my-10">
       <img
         src="~/assets/images/logo.svg"
-        class="m-auto h-[3.875rem]      text  "
+        class="m-auto h-[3.875rem] text"
         alt="logo"
       />
 
-      <div class="mt-16 bg-white   rounded-2xl box-shadow">
+      <div class="mt-16 bg-white rounded-2xl box-shadow">
         <h3
           class="text-center text-2xl py-6 font-medium text-primary-blue border-b-[1px] border=[#FEFEFE]"
         >
@@ -31,7 +35,7 @@
                 v-model="email"
                 type="email"
                 id="email"
-                class="bg-transparent focus:bg-transparent block flex-1 min-w-0 w-full  rounded-tr-lg rounded-br-lg text-sm text-primary-input p-[1.125rem] pl-1 outline-0 border-0"
+                class="bg-transparent focus:bg-transparent block flex-1 min-w-0 w-full rounded-tr-lg rounded-br-lg text-sm text-primary-input p-[1.125rem] pl-1 outline-0 border-0"
                 placeholder="email"
               />
             </div>
@@ -51,7 +55,7 @@
                 :type="showPassword ? 'text' : 'password'"
                 v-model="password"
                 id="password"
-                class="bg-transparent focus:bg-transparent block flex-1 min-w-0 w-full rounded-tr-lg rounded-br-lg  text-sm text-primary-input p-[1.125rem] pl-1 outline-0 border-0"
+                class="bg-transparent focus:bg-transparent block flex-1 min-w-0 w-full rounded-tr-lg rounded-br-lg text-sm text-primary-input p-[1.125rem] pl-1 outline-0 border-0"
                 placeholder="password"
               />
 
@@ -70,7 +74,6 @@
         </form>
       </div>
     </div>
-
   </div>
 </template>
 
