@@ -1,5 +1,8 @@
 <template>
   <div>
+    <!-- Privacy Holder component -->
+    <PartialsPrivacyHolder :hasCreateButton="false" />
+
     <div>
       <TablesCampaigns />
     </div>
