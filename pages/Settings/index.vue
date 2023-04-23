@@ -12,6 +12,7 @@
     </div>
 
     
+    <!-- need it for later -->
     <!-- <div v-if="modalId == 'google_auth'">
       <Modal
         title="Set up Google Authenticator"
@@ -35,6 +36,7 @@
         <SettingsPhoneTwoFa />
       </Modal>
     </div> 
+
     <div class="flex w-auto">
       <Button
         @click="openModal('google_auth')"
@@ -120,7 +122,7 @@ const settingsOptions = ref([
 ])
 const plansAndBillingPage = ref("index")
 
-const toggleTab = (tabId: string) => {
+const toggleTab = (tabId: any) => {
   selectedOptionId.value = tabId
 
   if (tabId == 'plans_and_billings')
