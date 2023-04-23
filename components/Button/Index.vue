@@ -96,6 +96,10 @@ button {
     @apply border border-solid border-[#7c8db5] text-[#7c8db5];
   }
 
+  &.isGray.hasBorder {
+    @apply border border-solid border-[#7c8db5] text-[#7c8db5];
+  }
+
   span {
     @apply block text-sm;
   }
