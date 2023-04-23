@@ -8,7 +8,7 @@
         :centered="false"
         @close="close"
       >
-        <DonorsWithholdRequest />
+        <DonorsWithholdRequest @close="close" />
       </Modal>
     </div>
 
