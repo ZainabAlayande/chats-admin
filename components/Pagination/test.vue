@@ -1,5 +1,6 @@
 <template>
   <div> <Pagination :numOfItemsPerPage="numOfItemsPerPage" :currentPageNum="currentPageNum" :totalNumOfItems="totalNumOfItems" @updatePage="updatePage" /> </div>
+   
 </template>
 
 <script setup lang="ts">

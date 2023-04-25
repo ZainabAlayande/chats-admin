@@ -1,4 +1,7 @@
-<template>
+<template> 
+  <!-- Privacy Holder component -->
+  <PartialsPrivacyHolder :hasCreateButton="false" />
+
   <div>
     <div class="flex items-center space-x-3">
       <span
@@ -24,10 +27,15 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts"> 
+const modalId = ref('')
+const closeModal = (id: string) => { modalId.value = "" }
+const openModal = (id: string) => { modalId.value = id }
+
 const activeTab = ref("all_donors");
 const tabs = ref([
   { title: "All Donors", id: "all_donors" },
   { title: "Withdraw Request", id: "withrdraw_request" },
 ]);
 </script>
+ 

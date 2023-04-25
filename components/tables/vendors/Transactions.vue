@@ -31,13 +31,11 @@
             <td>{{ donor.name }}</td>
             <td>{{ donor.amount }}</td>
             <td>{{ donor.beneficiary }}</td>
-            <td class="">{{ donor.date }}</td>
-          
+            <td>{{ donor.date }}</td>
 
-            <td> 
-                <WidgetsIconsEllipsis /> 
+            <td>
+              <WidgetsIconsEllipsis />
             </td>
- 
           </tr>
         </tbody>
       </table>
@@ -45,12 +43,12 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const headers = ref([
   { title: "Reference ID" },
   { title: "Amount" },
   { title: "Beneficiary" },
-  { title: "Date" }, 
+  { title: "Date" },
   { title: "Actions" },
 ]);
 
@@ -59,32 +57,32 @@ const donors = ref([
     name: "Blue Orange Foundation",
     amount: "$123,476,000",
     beneficiary: "Feed the poor",
-    date: "12 Dec, 2020", 
-  },      
+    date: "12 Dec, 2020",
+  },
   {
     name: "Blue Orange Foundation",
     amount: "$123,476,000",
     beneficiary: "Feed the poor",
-    date: "12 Dec, 2020", 
-  },      
+    date: "12 Dec, 2020",
+  },
   {
     name: "Blue Orange Foundation",
     amount: "$123,476,000",
     beneficiary: "Feed the poor",
-    date: "12 Dec, 2020", 
-  },      
+    date: "12 Dec, 2020",
+  },
   {
     name: "Blue Orange Foundation",
     amount: "$123,476,000",
     beneficiary: "Feed the poor",
-    date: "12 Dec, 2020", 
-  },      
+    date: "12 Dec, 2020",
+  },
   {
     name: "Blue Orange Foundation",
     amount: "$123,476,000",
     beneficiary: "Feed the poor",
-    date: "12 Dec, 2020", 
-  },      
+    date: "12 Dec, 2020",
+  },
 ]);
 </script>
 
@@ -92,7 +90,10 @@ const donors = ref([
 .main {
   box-shadow: 0px 3.17px 19.8125px rgba(174, 174, 192, 0.15);
 }
-table >tbody > tr> td  {
-  @apply align-middle   mx-auto   text-base px-6 py-4 ;
+table > tbody > tr > td {
+  @apply align-middle text-center mx-auto text-base p-6;
+}
+table > tbody > tr > td:first-child {
+  @apply text-left  mx-auto;
 }
 </style>

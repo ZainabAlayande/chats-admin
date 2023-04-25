@@ -29,31 +29,39 @@
             :class="index % 2 != 0 && 'bg-[#FCFCFE]'"
           >
             <td class="title">
-            <nuxt-link :to="`beneficiaries/${ organization.id}`"> 
-            {{ organization.name }}
-            </nuxt-link>
+              <nuxt-link :to="`beneficiaries/${organization.id}`">
+                {{ organization.name }}
+              </nuxt-link>
             </td>
 
             <td>{{ organization.email }}</td>
             <td>{{ organization.amount }}</td>
-            <td class="">{{ organization.campaigns }}</td>
-            <td> 
-            <span class="text-xs px-2 py-[.35rem] rounded-2xl capitalize" :class="organization.status == 'active' ? 'text-[#337138] bg-[#D1F7C4]' : 'text-[#3D435E] bg-[#E7EBF3]'"> {{ organization.status }} </span>
+            <td>{{ organization.campaigns }}</td>
+            <td>
+              <span
+                class="text-xs px-2 py-[.35rem] rounded-2xl capitalize"
+                :class="
+                  organization.status == 'active'
+                    ? 'text-[#337138] bg-[#D1F7C4]'
+                    : 'text-[#3D435E] bg-[#E7EBF3]'
+                "
+              >
+                {{ organization.status }}
+              </span>
             </td>
 
-           
-
-            <td> 
-                <Button
-                  :hasBorder="true"
-                  :hasIcon="false" 
-                  :text="organization.status == 'active' ? 'Deactivate' : 'Activate'"
-                  :isGray="organization.status == 'active'"
-                  :disabled="organization.status == 'active'"
-                  class="text-[.875rem] !py-2 !px-3"
-                /> 
+            <td>
+              <Button
+                :hasBorder="true"
+                :hasIcon="false"
+                :text="
+                  organization.status == 'active' ? 'Deactivate' : 'Activate'
+                "
+                :isGray="organization.status == 'active'"
+                :disabled="organization.status == 'active'"
+                class="text-[.875rem] !py-2 !px-3"
+              />
             </td>
- 
           </tr>
         </tbody>
       </table>
@@ -61,7 +69,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const headers = ref([
   { title: "Name" },
   { title: "Email address" },
@@ -127,7 +135,7 @@ const organizations = ref([
     amount: "40,888",
     campaigns: "3",
     status: "inactive",
-  }, 
+  },
 ]);
 </script>
 
@@ -135,10 +143,10 @@ const organizations = ref([
 .main {
   box-shadow: 0px 3.17px 19.8125px rgba(174, 174, 192, 0.15);
 }
-table > tbody > tr> td  {
-  @apply align-middle  text-center text-base px-6 py-4 ;
+table > tbody > tr > td {
+  @apply align-middle  text-center text-base px-6 py-4;
 }
-table > tbody > tr> td.title  {
-  @apply   text-left   ;
+table > tbody > tr > td.title {
+  @apply text-left;
 }
 </style>
