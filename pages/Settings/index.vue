@@ -9,43 +9,9 @@
       >
         <SettingsNewPlan action="new" />
       </Modal>
-    </div>
-
-    
-    <!-- <div v-if="modalId == 'google_auth'">
-      <Modal
-        title="Set up Google Authenticator"
-        id="google_auth"
-        size="lg"
-        :centered="true"
-        @close="closeModal"
-      >
-        <SettingsGoogleAuthenticator />
-      </Modal>
-    </div>
-
-    <div v-if="modalId == 'phone_auth'">
-      <Modal
-        title="Set up Phone 2FA"
-        id="phone_auth"
-        size="md"
-        :centered="true"
-        @close="closeModal"
-      >
-        <SettingsPhoneTwoFa />
-      </Modal>
     </div> 
-    <div class="flex w-auto">
-      <Button
-        @click="openModal('google_auth')"
-        text="Set up Google Authenticator"
-      />
 
-      <Button @click="openModal('phone_auth')" text="Set up Phone 2FA" />
-    </div> 
---> 
-
-
+    <!--  -->
       <div class="flex justify-between items-center p-4">
         <div class="flex space-x-4 items-center">
           <span
@@ -106,12 +72,12 @@
 
         <div v-else>
           <SettingsManagePlan />
-        </div>
-      </div>
+        </div> 
+      </div> 
     </div>   
 </template>
 
-<script setup lang="ts"> 
+<script setup lang="ts">  
 const modalId = ref('')
 const selectedOptionId = ref("password_and_2fa")
 const settingsOptions = ref([
@@ -125,9 +91,7 @@ const toggleTab = (tabId: string) => {
 
   if (tabId == 'plans_and_billings')
     return plansAndBillingPage.value = 'index'
-}
-// const closeModal = () => { modalId.value = "" }
-// const openModal = (id: string) => { modalId.value = id } 
+} 
 </script>
  
  <style scoped >
