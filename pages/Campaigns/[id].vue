@@ -8,13 +8,29 @@
       <h3 class="font-bold text-4xl">Feed The Hungry</h3>
     </div>
 
-    <div class="grid grid-cols-3 mt-6">
-      <div class="col-span-2">
-        <h1 class="text-center text-3xl font-bold mt-10">Charts Here</h1>
+    <div class="grid grid-cols-3 gap-x-4 mt-6">
+      <div class="col-span-2 flex flex-col space-y-4"> 
+          <div class="flex space-x-4">
+            <ChartsCampaignTotalCount  class="flex-1"/>   
+            <ChartsCampaignBeneficiaryAgeGroup  class="flex-1"/>   
+            <!-- <ChartsCampaignBeneficiaryAgeGroup class="flex-1"/>    -->
+          </div> 
 
-        <div>
-          <TablesCampaignsBeneficiaryComplaints />
-        </div>
+          <div class="flex space-x-4">
+            <ChartsCampaignBeneficiaryMaritalStatus class="flex-1"/>   
+            <ChartsCampaignBeneficiaryByLocation class="flex-1"/>   
+            <!-- <ChartsCampaignBeneficiaryAgeGroup class="flex-1"/>    -->
+          </div> 
+
+          <div class="flex space-x-4">
+            <ChartsCampaignBeneficiaryBalances class="flex-1"/>   
+            <ChartsCampaignVendorTransactionPerBeneficiary class="flex-1"/>   
+            <!-- <ChartsCampaignBeneficiaryAgeGroup class="flex-1"/>    -->
+          </div> 
+
+          <div class="flex">
+            <ChartsCampaignBeneficiaryComplaints  class="flex-1"/>    
+          </div> 
       </div>
 
       <!--  -->
@@ -48,17 +64,14 @@
             <h5 class="pb-2 border-b w-full font-semibold mb-3.5">Contact</h5>
 
             <div class="flex-col space-y-3.5 text-sm font-medium">
-              <!--  -->
               <div class="flex justify-between items-center pb-2 border-b">
                 <span> Phone </span>
                 <span> +234 813 220 5304 </span>
-              </div>
-              <!--  -->
+              </div> 
               <div class="flex justify-between items-center pb-2 border-b">
                 <span> Email </span>
                 <span> example@gmail.com </span>
-              </div>
-              <!--  -->
+              </div> 
               <div class="flex justify-between items-center pb-2 border-b">
                 <span> Website </span>
                 <span class="text-[#2F80ED]"> https://blueorange.org </span>
@@ -79,11 +92,8 @@
             </div>
           </section>
         </div>
-
-        <!--  -->
-        <TablesCampaignsSummary />
-
-        <!--  -->
+ 
+        <TablesCampaignsSummary /> 
         <TablesCampaignsVendorsList />
       </div>
     </div>

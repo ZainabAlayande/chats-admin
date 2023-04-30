@@ -72,9 +72,17 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-3 mt-6">
-      <div class="col-span-2">
-        <h1 class="text-center text-3xl font-bold mt-10">Charts Here</h1>
+    <div class="grid grid-cols-3 gap-x-4  mt-6">
+     <div class="col-span-2 flex flex-col space-y-4">  
+          <div class="flex space-x-4">
+            <ChartsNgosBeneficiaryMaritalStatus class="flex-1"/>   
+            <ChartsNgosBeneficiaryByLocation class="flex-1"/>   
+          </div> 
+
+          <div class="flex space-x-4">
+            <ChartsNgosBeneficiaryBalances class="flex-1"/>   
+            <ChartsNgosVendorTransactionPerBeneficiary class="flex-1"/>   
+          </div>  
       </div>
 
       <!--  -->
