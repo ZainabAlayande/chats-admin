@@ -78,6 +78,25 @@ const headers = ref([
   { title: "Actions" },
 ]);
 
+/* 
+{
+  "id": 1,
+  "name": "Avocado",
+  "email": "gibirima@avocado.com",
+  "phone": null,
+  "address": null,
+  "state": null,
+  "country": null,
+  "logo_link": null,
+  "website_url": "https://www.avocado.com",
+  "registration_id": "CHATSORGUFDC0WK",
+  "year_of_inception": null,
+  "profile_completed": false,
+  "is_verified": false,
+  "createdAt": "2022-09-24T14:10:02.464Z",
+  "updatedAt": "2022-09-24T14:10:02.464Z"
+}, */
+
 const organizations = ref([
   {
     id: "rf",
