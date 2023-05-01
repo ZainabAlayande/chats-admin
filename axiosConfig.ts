@@ -3,6 +3,8 @@ import axios, { AxiosInstance } from "axios";
 import { useAuthStore } from "~/store/authentication";
 
 const $axios: AxiosInstance = axios.create({
+
+  // This has to be changed later and should be taken from env
   baseURL: "https://staging-api.chats.cash/v1/",
 });
 
