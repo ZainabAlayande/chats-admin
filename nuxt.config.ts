@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     "~/assets/styles/global.scss",
     "~/assets/styles/fonts.scss",
   ],
+
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -12,7 +13,8 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ["@pinia/nuxt"],
+  modules: ["@pinia/nuxt", "@pinia-plugin-persistedstate/nuxt"],
+
   pinia: {
     autoImports: [
       // automatically imports `defineStore`
@@ -20,10 +22,20 @@ export default defineNuxtConfig({
       ["defineStore", "definePiniaStore"], // import { defineStore as definePiniaStore } from 'pinia'
     ],
   },
-  terser: {
-    terserOptions: {
-      compress: {
-        drop_console: true,
+
+  runtimeConfig: {
+    // Keys within public, will be also exposed to the client-side
+    public: {
+      BASE_URL: process.env.BASE_URL,
+    },
+  },
+
+  build: {
+    terser: {
+      terserOptions: {
+        compress: {
+          drop_console: true,
+        },
       },
     },
   },

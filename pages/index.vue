@@ -26,9 +26,9 @@
               </span>
 
               <input
-                v-model="email"
-                type="email"
                 id="email"
+                v-model="payload.email"
+                type="email"
                 class="bg-transparent focus:bg-transparent block flex-1 min-w-0 w-full rounded-tr-lg rounded-br-lg text-sm text-primary-input p-[1.125rem] pl-1 outline-0 border-0"
                 placeholder="email"
               />
@@ -46,16 +46,17 @@
               </span>
 
               <input
-                :type="showPassword ? 'text' : 'password'"
-                v-model="password"
                 id="password"
+                v-model="payload.password"
+                :type="showPassword ? 'text' : 'password'"
                 class="bg-transparent focus:bg-transparent block flex-1 min-w-0 w-full rounded-tr-lg rounded-br-lg text-sm text-primary-input p-[1.125rem] pl-1 outline-0 border-0"
                 placeholder="password"
+                autocomplete="current-password"
               />
 
               <div
-                @click="togglePassword"
                 class="absolute right-0 top-0 my-auto h-full bg-transparent flex justify-center items-center px-[1.125rem] cursor-pointer"
+                @click="showPassword = !showPassword"
               >
                 <WidgetsIconsEyes :title="showPassword ? 'open' : 'close'" />
               </div>
@@ -63,7 +64,12 @@
           </div>
 
           <div class="block w-full mt-8">
-            <Button text="Login" class="w-full" @click="login" />
+            <Button
+              text="Login"
+              class="w-full"
+              :disabled="loading"
+              @click="login"
+            />
           </div>
         </form>
       </div>
@@ -72,18 +78,28 @@
 </template>
 
 <script setup lang="ts">
+import { LoginCredentials } from "~/repositories/auth/interface";
+import { useRepositories } from "~/repositories/useRepositories";
+
 definePageMeta({
   layout: "auth",
 });
-const showPassword = ref(false);
-const email = ref("");
-const password = ref("");
 
-const togglePassword = () => {
-  showPassword.value = !showPassword.value;
-};
-const login = () => {
-  console.log("logiing in");
+const showPassword: Ref<boolean> = ref(false);
+const loading: Ref<boolean> = ref(false);
+const payload = ref<LoginCredentials>({
+  email: "",
+  password: "",
+});
+
+const login = async () => {
+  loading.value = true;
+  const { auth } = useRepositories();
+  const authData = await auth.login(payload.value).finally(() => {
+    loading.value = false;
+  });
+
+  console.log("authData", authData);
 };
 </script>
 

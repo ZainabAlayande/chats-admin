@@ -21,10 +21,8 @@
     </span>
   </button>
 </template>
- 
 
-
-<script   setup  lang="ts">
+<script setup lang="ts">
 const props = defineProps({
   text: {
     type: String,
@@ -84,14 +82,15 @@ const props = defineProps({
   },
   iconName: {
     type: String,
+    default: "",
   },
-
-},)
-
+});
 
 // emits
-const emit = defineEmits(['click'])
-const clickBtn = () => { emit('click') }
+const emit = defineEmits(["click"]);
+const clickBtn = () => {
+  emit("click");
+};
 </script>
 
 <style lang="scss" scoped>
