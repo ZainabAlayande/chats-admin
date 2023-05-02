@@ -1,9 +1,8 @@
 stages:
   - staging
+  - echo $PATH
 
 before_script:
-  - export PATH=$PATH:~/usr/bin/ssh-agent
-  - export PATH=$PATH:~/usr/bin/ssh-add
   - eval $(ssh-agent -s)
   - chmod 600 $SSH_PRIVATE_KEY
   - ssh-add $SSH_PRIVATE_KEY
