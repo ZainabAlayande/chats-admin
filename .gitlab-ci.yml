@@ -9,7 +9,7 @@ before_script:
 deploy_staging:
   stage: staging
   script:
-    - ssh $USER@$APP_URL_STAGING -o StrictHostKeyChecking=no ". restart_ssh.sh && ssh-add .ssh/chatsapi && cd godmode && git pull origin develop && docker run -d build godmode && exit"
+    - ssh $USER@$APP_URL_STAGING -o StrictHostKeyChecking=no ". restart_ssh.sh && /usr/bin/ssh-add .ssh/chatsapi && cd godmode && git pull origin develop && docker run -d build godmode && exit"
   only:
     - develop
   tags:
