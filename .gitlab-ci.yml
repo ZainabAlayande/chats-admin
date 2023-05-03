@@ -3,7 +3,7 @@ stages:
 
 
 before_script:
-  - echo $PATH
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
   - eval $(ssh-agent -s)
   - chmod 600 $SSH_PRIVATE_KEY
   - ssh-add $SSH_PRIVATE_KEY
