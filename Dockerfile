@@ -1,5 +1,7 @@
 FROM node:14.16.0-alpine
 
+RUN apt-get update && apt-get install -y openssh-client
+
 WORKDIR /godmode
 
 COPY . .
