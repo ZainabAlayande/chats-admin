@@ -1,6 +1,6 @@
 FROM node:14.16.0-alpine
 
-RUN apt-get update && apt-get install -y openssh-client
+RUN apk add --no-cache openssh
 
 WORKDIR /godmode
 
