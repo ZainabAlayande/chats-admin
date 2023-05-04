@@ -1,4 +1,6 @@
-RUN apk add --no-cache openssh
+FROM node:14.16.0-alpine
+
+RUN apt add --no-cache openssh
 
 WORKDIR /godmode
 
