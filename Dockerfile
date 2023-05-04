@@ -1,5 +1,3 @@
-FROM node:14.16.0-alpine
-
 RUN apk add --no-cache openssh
 
 WORKDIR /godmode
