@@ -3,7 +3,7 @@ stages:
 
 
 before_script:
-  - eval $(ssh-agent -s)
+  - ssh-agent -a /tmp/ssh-agent.sock > /dev/null
   - chmod 600 $SSH_PRIVATE_KEY
   - ssh-add $SSH_PRIVATE_KEY
 
