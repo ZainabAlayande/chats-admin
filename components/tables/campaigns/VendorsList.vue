@@ -19,7 +19,7 @@
       <div
         class=" flex items-center space-x-2 font-bold text-primary-green"
       >
-        <WidgetsIconsEyes title="open" />
+        <IconEyes title="open" />
        <span class="block">See All</span>
       </div>
     </div>

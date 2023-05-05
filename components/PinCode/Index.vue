@@ -1,15 +1,5 @@
 <template>
-  <div class="flex space-x-1.5 justify-around">
-    <!-- modify later -->
-    <!-- <input
-      v-for="(code, index) in noOfFields"
-      :key="index"
-      type="number"
-      class="h-11 w-11 inline-flex rounded font-medium text-center bg-[#F5F6F8] focus:ring-primary-green outline-none focus:outline-primary-green"
-      placeholder="-"
-      @input="displayInput"
-    /> -->
-
+  <div class="flex space-x-1.5 justify-around"> 
     <!-- value1 -->
     <input
       type="number"

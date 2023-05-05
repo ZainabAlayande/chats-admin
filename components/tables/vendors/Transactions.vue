@@ -34,7 +34,7 @@
             <td>{{ donor.date }}</td>
 
             <td>
-              <WidgetsIconsEllipsis />
+              <IconEllipsis />
             </td>
           </tr>
         </tbody>

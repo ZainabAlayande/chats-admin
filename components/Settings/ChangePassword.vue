@@ -28,7 +28,7 @@
 
         <!-- Icons  -->
         <div class="icon-left absolute bottom-[19px] left-[14px]">
-          <WidgetsIconsLock />
+          <IconLock />
         </div>
         <div
           class="absolute right-[14px] bottom-4 cursor-pointer"
@@ -38,7 +38,7 @@
               : (password.type = 'password')
           "
         >
-            <WidgetsIconsEyes :title="password.type  === 'password' ? 'open' : 'close'" />
+            <IconEyes :title="password.type  === 'password' ? 'open' : 'close'" />
         </div>
       </div>
 

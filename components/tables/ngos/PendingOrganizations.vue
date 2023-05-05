@@ -28,7 +28,7 @@
             class="cursor-pointer"
             :class="index % 2 != 0 && 'bg-[#FCFCFE]'"
           >
-            <td>{{ organization.name }}</td>
+            <td class="title">{{ organization.name }}</td>
             <td>{{ organization.email }}</td>
             <td>{{ organization.firstName }}</td>
             <td class="">{{ organization.lastName }}</td>
@@ -110,5 +110,8 @@ const organizations = ref([
 }
 table > tbody > tr > td {
   @apply align-middle  text-center  text-base px-6 py-4;
+}
+table > tbody > tr > td.title {
+  @apply   text-left ;
 }
 </style>

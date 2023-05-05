@@ -22,7 +22,7 @@
 
             <div class="flex relative items-center bg-primary-light rounded-lg">
               <span class="inline-flex items-center pl-4 pr-3 text-sm">
-                <WidgetsIconsEmail />
+                <IconEmail />
               </span>
 
               <input
@@ -42,7 +42,7 @@
 
             <div class="flex relative items-center bg-primary-light rounded-lg">
               <span class="inline-flex items-center pr-3 pl-4">
-                <WidgetsIconsLock />
+                <IconLock />
               </span>
 
               <input
@@ -58,7 +58,7 @@
                 class="absolute right-0 top-0 my-auto h-full bg-transparent flex justify-center items-center px-[1.125rem] cursor-pointer"
                 @click="showPassword = !showPassword"
               >
-                <WidgetsIconsEyes :title="showPassword ? 'open' : 'close'" />
+                <IconEyes :title="showPassword ? 'open' : 'close'" />
               </div>
             </div>
           </div>

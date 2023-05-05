@@ -25,7 +25,7 @@
             class="flex items-start col-span-1 box-shadow rounded-xl py-4 px-5"
           >
             <span class="p-4 bg-[#5DDAB4] rounded-2xl">
-              <WidgetsIconsSideBar :isActive="true" title="vendors" />
+              <IconSideBar :isActive="true" title="vendors" />
             </span>
 
             <div class="ml-4">
@@ -40,7 +40,7 @@
             class="flex items-start col-span-1 box-shadow rounded-xl py-4 px-5"
           >
             <span class="p-4 bg-[#FF7976] rounded-2xl">
-              <WidgetsIconsSideBar :isActive="true" title="vendors" />
+              <IconSideBar :isActive="true" title="vendors" />
             </span>
 
             <div class="ml-4">
@@ -55,7 +55,7 @@
             class="flex items-start col-span-1 box-shadow rounded-xl py-4 px-5"
           >
             <span class="p-4 bg-[#9694FF] rounded-2xl">
-              <WidgetsIconsSideBar :isActive="true" title="beneficiaries" />
+              <IconSideBar :isActive="true" title="beneficiaries" />
             </span>
 
             <div class="ml-4">
