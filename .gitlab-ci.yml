@@ -1,13 +1,15 @@
 stages:
   - staging
+  - production
 
 # before_script:
-#   - export PATH="$PATH:/usr/bin"
+#   - eval $(ssh-agent -s)
+#   - chmod 600 $SSH_PRIVATE_KEY
+#   - ssh-add $SSH_PRIVATE_KEY 
 
 deploy_staging:
   stage: staging
   script:
-    - echo $PATH
     - eval $(ssh-agent -s)
     - chmod 600 $SSH_PRIVATE_KEY
     - ssh-add $SSH_PRIVATE_KEY
