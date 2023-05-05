@@ -2,8 +2,8 @@ stages:
   - staging
 
 
-# before_script:
-#   - export PATH="$PATH:/usr/bin"
+before_script:
+  - export PATH="$PATH:/usr/bin"
 #   - echo $PATH
 #   - eval $(ssh-agent -s)
 #   - chmod 600 $SSH_PRIVATE_KEY
@@ -12,12 +12,11 @@ stages:
 deploy_staging:
   stage: staging
   script:
-  - export PATH="$PATH:/usr/bin"
   - echo $PATH
   - eval $(ssh-agent -s)
   - chmod 600 $SSH_PRIVATE_KEY
   - ssh-add $SSH_PRIVATE_KEY
-    - ssh $USER@$APP_URL_STAGING -o StrictHostKeyChecking=no ". restart_ssh.sh && ssh-add .ssh/chatsapi && cd godmode && git pull origin develop && docker run -d build godmode && exit"
+  - ssh $USER@$APP_URL_STAGING -o StrictHostKeyChecking=no ". restart_ssh.sh && ssh-add .ssh/chatsapi && cd godmode && git pull origin develop && docker run -d build godmode && exit"
   only:
     - develop
   tags:
