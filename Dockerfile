@@ -1,3 +1,4 @@
+FROM node:14.16.0-alpine
 WORKDIR /godmode
 COPY package.json ./
 RUN npm i
