@@ -1,20 +1,6 @@
-FROM node:14.16.0
-
-RUN apt-get update && apt-get install -y openssh-client
-
+FROM node:14.0.0-alpine
 WORKDIR /godmode
-
+COPY package.json ./
+RUN npm i
 COPY . .
 
-RUN npm install
-
-EXPOSE 3088
-
-ENV PATH="$PATH:/usr/bin"
-ENV HOST=0.0.0.0
-ENV NODE_ENV=production
-ENV PORT=3088
-
-RUN npm run build
-
-CMD [ "npm", "run", "start" ]
