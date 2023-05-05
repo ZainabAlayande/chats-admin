@@ -2,18 +2,18 @@ stages:
   - staging
   - production
 
-# before_script:
-#   - eval $(ssh-agent -s)
-#   - chmod 600 $SSH_PRIVATE_KEY
-#   - ssh-add $SSH_PRIVATE_KEY 
+before_script:
+  - eval $(ssh-agent -s)
+  - chmod 600 $SSH_PRIVATE_KEY
+  - ssh-add $SSH_PRIVATE_KEY 
 
 deploy_staging:
   stage: staging
   script:
-    - eval $(ssh-agent -s)
-    - chmod 600 $SSH_PRIVATE_KEY
-    - ssh-add $SSH_PRIVATE_KEY
-    - ssh $USER@$APP_URL_STAGING -o StrictHostKeyChecking=no ". restart_ssh.sh && ssh-add .ssh/chatsapi && cd godmode && git checkout develop && git reset --hard && git pull origin develop && docker run -d build godmode && exit"
+    # - eval $(ssh-agent -s)
+    # - chmod 600 $SSH_PRIVATE_KEY
+    # - ssh-add $SSH_PRIVATE_KEY
+    - ssh $USER@$APP_URL_STAGING -o StrictHostKeyChecking=no ". restart_ssh.sh && ssh-add .ssh/chatsapi && cd godmode && git checkout develop && git reset --hard && git pull origin develop && docker build -t godmode . && docker run -d --rm godmode && exit"
   only:
     - develop
   tags:
