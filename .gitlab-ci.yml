@@ -1,13 +1,8 @@
 stages:
   - staging
 
-
-before_script:
-  - export PATH="$PATH:/usr/bin"
-#   - echo $PATH
-#   - eval $(ssh-agent -s)
-#   - chmod 600 $SSH_PRIVATE_KEY
-#   - ssh-add $SSH_PRIVATE_KEY
+# before_script:
+#   - export PATH="$PATH:/usr/bin"
 
 deploy_staging:
   stage: staging
