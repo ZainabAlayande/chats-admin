@@ -26,7 +26,7 @@
         <p class="flex items-center text-sm font-medium text-primary-black">
           <span class="mr-2"> {{ auth.message }} :</span>
           <span class="mr-2   uppercase">{{ auth.securityKey }}</span>
-            <WidgetsIconsEyes  title="open" />
+            <IconEyes  title="open" />
         </p>
       </div>
     </div>

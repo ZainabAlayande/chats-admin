@@ -13,7 +13,7 @@
         <h1 class="font-bold space-y-4 mb-4 text-[1.125rem]">{{ campaign.name }}</h1>
    
         <div class="flex items-center gap-x-4 mb-4  font-medium text-primary-gray"> 
-        <WidgetsIconsEyes title="close" />
+        <IconEyes title="close" />
            {{ campaign.beneficiaries }} Beneficiaries
         </div>
 

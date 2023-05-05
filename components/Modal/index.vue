@@ -1,9 +1,10 @@
 <template>
   <div
     class="fixed top-0 left-0 !w-screen !h-screen overflow-auto z-50 bg-primary-blue bg-opacity-30 py-6"
+  @click="closeModal"
   >
     <section
-      class="relative h-auto mx-auto bg-white p-6 rounded-lg box-shadow"
+      class="relative modal h-auto mx-auto bg-white p-6 rounded-lg box-shadow"
       :style="`width: ${modalSizes} !important;`"
     >
       <div class="relative flex pb-4" :class="centered && 'justify-center'">
@@ -15,7 +16,7 @@
         </h3>
 
         <button type="button" class="absolute top-0 right-0" @click="close">
-          <WidgetsIconsClose />
+          <IconClose />
         </button>
       </div>
 
@@ -69,8 +70,15 @@ const modalSizes = computed(() => {
 
 window.addEventListener("keyup", (e) => {
   if (e.key == 'Escape') return close()
-});
-
+}); 
+ 
+ const closeModal = () => {
+  window.addEventListener("click", (event) => {
+      if (!event.target.closest(".modal")) { close() }
+    },
+    false
+  )
+ }
 const close = () => {
   emit("close", props.id)
 } 

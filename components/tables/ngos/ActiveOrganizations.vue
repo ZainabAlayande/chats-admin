@@ -28,7 +28,7 @@
             class="cursor-pointer"
             :class="index % 2 != 0 && 'bg-[#FCFCFE]'"
           >
-            <td>
+            <td class="title">
               <nuxt-link :to="`ngos/${organization.id}`">
                 {{ organization.name }}
               </nuxt-link>
@@ -163,5 +163,8 @@ const organizations = ref([
 }
 table > tbody > tr > td {
   @apply align-middle  text-center  text-base px-6 py-4;
+}
+table > tbody > tr > td.title {
+  @apply   text-left ;
 }
 </style>

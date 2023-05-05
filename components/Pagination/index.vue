@@ -52,7 +52,7 @@
       title="Previous Page"
       @click="btnToDisable !== 'prev' ? clickHandler('prev') : null"
     >
-      <WidgetsIconsArrow title="left"/>
+      <IconArrow title="left"/>
     </span>
 
     <!-- next button -->
@@ -62,7 +62,7 @@
       title="Next Page"
       @click="btnToDisable !== 'next' ? clickHandler('next') : null"
     >
-      <WidgetsIconsArrow title="right"/>
+      <IconArrow title="right"/>
     </span>
   </div>
 </template>

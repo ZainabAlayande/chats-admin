@@ -39,7 +39,7 @@
           <h3
             class="text-xl flex items-center font-bold pb-5 pt-4 border-b space-x-2"
           >
-            <WidgetsIconsSideBar title="vendors" />
+            <IconSideBar title="vendors" />
             <span> Blue Orange Foundation </span>
           </h3>
 

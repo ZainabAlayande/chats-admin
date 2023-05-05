@@ -17,7 +17,7 @@
             "
           > 
             <span  >
-              <WidgetsIconsSideBar
+              <IconSideBar
                 :title="sideNav.name.toLowerCase()"
                 :isActive="sideNav.route == currentActiveRoute"
               />
@@ -34,7 +34,7 @@
           class="flex space-x-3.5 flex-end cursor-pointer items-center text-primary-red justify-start rounded-xl px-3.5 py-3 font-medium"
         >
           <span>
-            <WidgetsIconsSideBar title="logout" />
+            <IconSideBar title="logout" />
           </span>
 
           <span class="text-[1.125rem]">            Logout
