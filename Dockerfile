@@ -10,6 +10,7 @@ RUN npm install
 
 EXPOSE 3088
 
+ENV PATH="$PATH:/usr/bin"
 ENV HOST=0.0.0.0
 ENV NODE_ENV=production
 ENV PORT=3088
