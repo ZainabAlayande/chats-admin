@@ -3,6 +3,7 @@ stages:
 
 
 before_script:
+  - export PATH="$PATH:/usr/bin"
   - echo $PATH
   - eval $(ssh-agent -s)
   - chmod 600 $SSH_PRIVATE_KEY
