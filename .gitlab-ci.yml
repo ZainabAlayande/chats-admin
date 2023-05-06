@@ -13,7 +13,7 @@ deploy_staging:
     # - eval $(ssh-agent -s)
     # - chmod 600 $SSH_PRIVATE_KEY
     # - ssh-add $SSH_PRIVATE_KEY
-    - ssh $USER@$APP_URL_STAGING -o StrictHostKeyChecking=no ". restart_ssh.sh && ssh-add .ssh/chatsapi && cd godmode && git checkout develop && git reset --hard && git pull origin develop && docker build -t godmode . && docker rm -f godmode && docker run -p 3088:3088 -d --rm --name godmode godmode && docker image prune -a  && exit"
+    - ssh $USER@$APP_URL_STAGING -o StrictHostKeyChecking=no ". restart_ssh.sh && ssh-add .ssh/chatsapi && cd godmode && git checkout develop && git reset --hard && git pull origin develop && docker rm -f godmode &&  docker build -t godmode . && docker run -p 3088:3088 -d --rm --name godmode godmode && docker image prune -a  && exit"
   only:
     - develop
   tags:
