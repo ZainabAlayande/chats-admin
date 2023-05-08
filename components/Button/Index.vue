@@ -7,7 +7,8 @@
     :disabled="disabled"
     @click="clickBtn"
   >
-    <img v-if="loading" src="~/assets/images/spinner.svg" class="btn-spinner" />
+      <IconSpinner v-if="loading"  class="animate-spin"/>
+  
 
     <!-- button icons -->
     <span v-if="hasIcon">

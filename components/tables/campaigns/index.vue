@@ -8,7 +8,9 @@
       </div>
     </div>
 
-    <div>
+   <Loading v-if="loading"/>
+
+    <div v-else>
       <table class="table-auto w-full">
         <thead class="w-full">
           <tr>
@@ -59,7 +61,8 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang='ts'>
+import { useRepositories } from "~/repositories/useRepositories";
 const headers = ref([
   { title: "Name" },
   { title: "Total Amount" },
@@ -77,56 +80,26 @@ const campaigns = ref([
     amount_spent: "40,888",
     date_created: " Dec 24, 2022",
     status: "inactive",
-  },
-   {
-    id: "rf",
-    name: "Feed the poor",
-    total: "$890, 872",
-    amount_spent: "40,888",
-    date_created: " Dec 24, 2022",
-    status: "active",
-  },
-   {
-    id: "rf",
-    name: "Feed the poor",
-    total: "$890, 872",
-    amount_spent: "40,888",
-    date_created: " Dec 24, 2022",
-    status: "active",
-  },
-   {
-    id: "rf",
-    name: "Feed the poor",
-    total: "$890, 872",
-    amount_spent: "40,888",
-    date_created: " Dec 24, 2022",
-    status: "inactive",
-  },
-   {
-    id: "rf",
-    name: "Feed the poor",
-    total: "$890, 872",
-    amount_spent: "40,888",
-    date_created: " Dec 24, 2022",
-    status: "active",
-  },
-   {
-    id: "rf",
-    name: "Feed the poor",
-    total: "$890, 872",
-    amount_spent: "40,888",
-    date_created: " Dec 24, 2022",
-    status: "active",
-  },
-   {
-    id: "rf",
-    name: "Feed the poor",
-    total: "$890, 872",
-    amount_spent: "40,888",
-    date_created: " Dec 24, 2022",
-    status: "active",
-  },
+  }, 
 ]);
+
+
+const loading: Ref<boolean> = ref(false); 
+const fetchCampigns = async () => {
+  loading.value = true;
+  const { campaignsRepo } = useRepositories();
+
+ const reponse = await campaignsRepo.getAllCampaigns().finally(() => {
+    loading.value = false;
+  });
+
+// organizations.value =reponse.data
+  console.log(reponse) 
+}
+
+onBeforeMount(()=> {
+  fetchCampigns()
+})
 </script>
 
 <style lang="scss" scoped>

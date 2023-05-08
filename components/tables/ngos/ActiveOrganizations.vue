@@ -8,7 +8,9 @@
       </div>
     </div>
 
-    <div>
+    <Loading v-if="loading"/>
+
+    <div v-else>
       <table class="table-auto w-full">
         <thead class="w-full">
           <tr>
@@ -64,11 +66,13 @@
           </tr>
         </tbody>
       </table>
-    </div>
+    </div> 
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts"> 
+import { useRepositories } from "~/repositories/useRepositories";
+
 const headers = ref([
   { title: "Name" },
   { title: "Email address" },
@@ -77,26 +81,7 @@ const headers = ref([
   { title: "Status" },
   { title: "Actions" },
 ]);
-
-/* 
-{
-  "id": 1,
-  "name": "Avocado",
-  "email": "gibirima@avocado.com",
-  "phone": null,
-  "address": null,
-  "state": null,
-  "country": null,
-  "logo_link": null,
-  "website_url": "https://www.avocado.com",
-  "registration_id": "CHATSORGUFDC0WK",
-  "year_of_inception": null,
-  "profile_completed": false,
-  "is_verified": false,
-  "createdAt": "2022-09-24T14:10:02.464Z",
-  "updatedAt": "2022-09-24T14:10:02.464Z"
-}, */
-
+ 
 const organizations = ref([
   {
     id: "rf",
@@ -105,56 +90,22 @@ const organizations = ref([
     disbursed: "40,888",
     beneficiaries: "5,077",
     status: "active",
-  },
-  {
-    id: "d2",
-    name: "dansweiel",
-    email: "test@gmail.com",
-    disbursed: "40,888",
-    beneficiaries: "5,077",
-    status: "inactive",
-  },
-  {
-    id: "3rt",
-    name: "daniel",
-    email: "test@gmail.com",
-    disbursed: "40,888",
-    beneficiaries: "5,077",
-    status: "active",
-  },
-  {
-    id: "e4",
-    name: "dansweiel",
-    email: "test@gmail.com",
-    disbursed: "40,888",
-    beneficiaries: "5,077",
-    status: "inactive",
-  },
-  {
-    id: "5r",
-    name: "daniel",
-    email: "test@gmail.com",
-    disbursed: "40,888",
-    beneficiaries: "5,077",
-    status: "active",
-  },
-  {
-    id: "6r",
-    name: "dansweiel",
-    email: "test@gmail.com",
-    disbursed: "40,888",
-    beneficiaries: "5,077",
-    status: "inactive",
-  },
-  {
-    id: "7hmj",
-    name: "daniel",
-    email: "test@gmail.com",
-    disbursed: "40,888",
-    beneficiaries: "5,077",
-    status: "inactive",
-  },
+  }, 
 ]);
+const loading: Ref<boolean> = ref(false);
+
+const fetchNGOs = async () => {
+  loading.value = true;
+  const { ngosRepo } = useRepositories();
+
+ const response = await ngosRepo.getAllNGOs().finally(() => {
+    loading.value = false;
+  });
+ console.log(response)
+  organizations.value = response?.data
+} 
+
+onBeforeMount(()=> { fetchNGOs() })
 </script>
 
 <style lang="scss" scoped>

@@ -72,7 +72,7 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-3 gap-x-4  mt-6">
+    <div class="grid grid-cols-3 gap-x-4 mt-6">
      <div class="col-span-2 flex flex-col space-y-4">  
           <div class="flex space-x-4">
             <ChartsNgosBeneficiaryMaritalStatus class="flex-1"/>   
@@ -152,11 +152,31 @@
 </template>
 
 <script setup lang="ts"> 
+import { useRepositories } from "~/repositories/useRepositories";
+const loading: Ref<boolean> = ref(false);
+const route = useRoute()
+
+const fetchNGO = async () => {
+  loading.value = true;
+  const { ngosRepo } = useRepositories();
+  const {id } = route.params
+ 
+  const response = await ngosRepo.getBeneficiaryTotal(id).finally(() => {
+    loading.value = false;
+  });
+
+  // organizations.value = reponse.data }
+  console.log("reponse", response) 
+}
+
+onBeforeMount(()=> {
+  console.log('test' ,route.params)
+  fetchNGO()
+})
 </script>
 
- 
- 
-<style lang="scss" scoped>
+
+<style lang="scss" scoped> 
 .box-shadow {
   box-shadow: 0px 3.17px 19.8125px rgba(174, 174, 192, 0.15);
 }

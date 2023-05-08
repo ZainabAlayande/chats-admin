@@ -8,7 +8,9 @@
       </div>
     </div>
 
-    <div>
+    <Loading v-if="loading"/>
+
+    <div v-else>
       <table class="table-auto w-full">
         <thead class="w-full">
           <tr>
@@ -63,6 +65,7 @@
 </template>
 
 <script setup lang="ts">
+import { useRepositories } from "~/repositories/useRepositories";
 const headers = ref([
   { title: "Name" },
   { title: "Email address" },
@@ -81,56 +84,25 @@ const donors = ref([
     ngo_campaign_ration: "3 / 9",
     status: "active",
   },
-  {
-    id: "rf",
-    name: "Hope Spring Initiative",
-    email: "script@gmail.com",
-    total_donations: "$10,050,000",
-    ngo_campaign_ration: "3 / 9",
-    status: "inactive",
-  },
-  {
-    id: "rf",
-    name: "Hope Spring Initiative",
-    email: "script@gmail.com",
-    total_donations: "$10,050,000",
-    ngo_campaign_ration: "3 / 9",
-    status: "active",
-  },
-  {
-    id: "rf",
-    name: "Hope Spring Initiative",
-    email: "script@gmail.com",
-    total_donations: "$10,050,000",
-    ngo_campaign_ration: "3 / 9",
-    status: "inactive",
-  },
-  {
-    id: "rf",
-    name: "Hope Spring Scritpt",
-    email: "script@gmail.com",
-    total_donations: "$10,050,000",
-    ngo_campaign_ration: "3 / 9",
-    status: "inactive",
-  },
-  {
-    id: "rf",
-    name: "Hope iDonate",
-    email: "script@gmail.com",
-    total_donations: "$10,050,000",
-    ngo_campaign_ration: "3 / 9",
-    status: "active",
-  },
-  {
-    id: "rf",
-    name: "Johnny Walker Inc.",
-    email: "script@gmail.com",
-    total_donations: "$10,050,000",
-    ngo_campaign_ration: "3 / 9",
-    status: "active",
-  },
-
 ]);
+
+const loading: Ref<boolean> = ref(false);
+
+const fetchDonors = async () => {
+  loading.value = true;
+  const { donorsRepo } = useRepositories();
+
+ const reponse = await donorsRepo.getAllDonors().finally(() => {
+    loading.value = false;
+  });
+
+// donors.value = reponse.data
+  console.log(reponse) 
+}
+
+onBeforeMount(()=> {
+  fetchDonors()
+})
 </script>
 
 <style lang="scss" scoped>

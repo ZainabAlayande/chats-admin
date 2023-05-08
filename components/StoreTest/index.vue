@@ -17,7 +17,6 @@ const inputVal = ref('')
 
 const filtersStore = useFiltersStore()
 const { addValueToFilterList } = filtersStore
-const { filtersList } = storeToRefs(filtersStore)
- 
+const { filtersList } = storeToRefs(filtersStore) 
 </script>
   
