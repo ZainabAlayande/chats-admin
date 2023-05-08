@@ -8,7 +8,9 @@
       </div>
     </div>
 
-    <div>
+ <Loading v-if="loading"/>
+
+    <div v-else>
       <table class="table-auto w-full">
         <thead class="w-full">
           <tr>
@@ -23,7 +25,7 @@
 
         <tbody>
           <tr
-            v-for="(organization, index) in organizations"
+            v-for="(organization, index) in beneficiaries"
             :key="index"
             class="cursor-pointer"
             :class="index % 2 != 0 && 'bg-[#FCFCFE]'"
@@ -70,6 +72,7 @@
 </template>
 
 <script setup lang="ts">
+import { useRepositories } from "~/repositories/useRepositories";
 const headers = ref([
   { title: "Name" },
   { title: "Email address" },
@@ -79,7 +82,7 @@ const headers = ref([
   { title: "Actions" },
 ]);
 
-const organizations = ref([
+const beneficiaries = ref([
   {
     id: "rf",
     name: "Janet Woodpecker",
@@ -87,56 +90,25 @@ const organizations = ref([
     amount: "40,888",
     campaigns: "3",
     status: "active",
-  },
-  {
-    id: "d2",
-    name: "dansweiel",
-    email: "test@gmail.com",
-    amount: "40,888",
-    campaigns: "3",
-    status: "inactive",
-  },
-  {
-    id: "3rt",
-    name: "daniel",
-    email: "test@gmail.com",
-    amount: "40,888",
-    campaigns: "3",
-    status: "active",
-  },
-  {
-    id: "e4",
-    name: "dansweiel",
-    email: "test@gmail.com",
-    amount: "40,888",
-    campaigns: "3",
-    status: "inactive",
-  },
-  {
-    id: "5r",
-    name: "Hakeem Mensah",
-    email: "test@gmail.com",
-    amount: "40,888",
-    campaigns: "3",
-    status: "active",
-  },
-  {
-    id: "6r",
-    name: "dansweiel",
-    email: "test@gmail.com",
-    amount: "40,888",
-    campaigns: "3",
-    status: "inactive",
-  },
-  {
-    id: "7hmj",
-    name: "daniel",
-    email: "test@gmail.com",
-    amount: "40,888",
-    campaigns: "3",
-    status: "inactive",
-  },
+  },  
 ]);
+
+const loading: Ref<boolean> = ref(false);
+const fetchBeneficiaries = async () => {
+  loading.value = true;
+  const { beneficiariesRepo } = useRepositories();
+
+ const reponse = await beneficiariesRepo.getAllBeneficiaries().finally(() => {
+    loading.value = false;
+  });
+
+// beneficiaries.value = reponse.data
+  console.log(reponse) 
+}
+
+onBeforeMount(()=> {
+  fetchBeneficiaries()
+})
 </script>
 
 <style lang="scss" scoped>

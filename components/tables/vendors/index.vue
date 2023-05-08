@@ -8,7 +8,9 @@
       </div>
     </div>
 
-    <div>
+   <Loading v-if="loading"/>
+
+    <div v-else>
       <table class="table-auto w-full mx-auto">
         <thead class="w-full">
           <tr>
@@ -55,7 +57,8 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang='js'>
+import { useRepositories } from "~/repositories/useRepositories";
 const headers = ref([
   { title: "Name" },
   { title: "Email Address" },
@@ -73,49 +76,25 @@ const vendors = ref([
     ngo_campaign_ratio: "3 / 9",
     status: "active", 
   },  
-  {
-    name: "Blue Orange Foundation",
-    email: "test@gmamil.com",
-    amount: "$123,476,000",
-    ngo_campaign_ratio: "3 / 9",
-    status: "inactive", 
-  },  
-  {
-    name: "Blue Orange Foundation",
-    email: "test@gmamil.com",
-    amount: "$123,476,000",
-    ngo_campaign_ratio: "3 / 9",
-    status: "active", 
-  },  
-  {
-    name: "Blue Orange Foundation",
-    email: "test@gmamil.com",
-    amount: "$123,476,000",
-    ngo_campaign_ratio: "3 / 9",
-    status: "active", 
-  },  
-  {
-    name: "Blue Orange Foundation",
-    email: "test@gmamil.com",
-    amount: "$123,476,000",
-    ngo_campaign_ratio: "3 / 9",
-    status: "active", 
-  },  
-  {
-    name: "Blue Orange Foundation",
-    email: "test@gmamil.com",
-    amount: "$123,476,000",
-    ngo_campaign_ratio: "3 / 9",
-    status: "inactive", 
-  },  
-  {
-    name: "Blue Orange Foundation",
-    email: "test@gmamil.com",
-    amount: "$123,476,000",
-    ngo_campaign_ratio: "3 / 9",
-    status: "active", 
-  },  
 ]);
+
+const loading: Ref<boolean> = ref(false);
+
+const fetchAllVendors = async () => {
+  loading.value = true;
+  const { vendorsRepo } = useRepositories(); 
+
+ const reponse = await vendorsRepo.getAllVendors().finally(() => {
+    loading.value = false;
+  });
+
+// vendors.value =reponse.data
+  console.log(reponse) 
+}
+
+onBeforeMount(()=> { 
+  fetchAllVendors()
+})
 </script>
 
 <style lang="scss" scoped>

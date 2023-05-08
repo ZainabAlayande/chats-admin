@@ -1,5 +1,4 @@
 import axios, { AxiosInstance } from "axios";
-
 import { useAuthStore } from "~/store/authentication";
 
 const $axios: AxiosInstance = axios.create({
@@ -11,8 +10,7 @@ const $axios: AxiosInstance = axios.create({
 // Interceptor to check if token is available and update headers
 $axios.interceptors.request.use((config) => {
   const authStore = useAuthStore();
-  const token = authStore.token;
-
+  const { token } = authStore;
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

@@ -1,17 +1,23 @@
 import { defineStore } from "pinia";
 
-interface AuthState {
-  token: string;
-  user?: object;
-}
+export const useAuthStore = defineStore("auth", () => {
+  const token = ref<String>("");
+  const user = ref<Object>({});
 
-export const useAuthStore = defineStore("auth", {
-  state: (): AuthState => ({
-    token: "",
-    user: {},
-  }),
+  const setAuthToken = (authToken: string) => {
+    token.value = authToken;
+    localStorage.setItem("userToken", authToken);
+  };
+  const setAuthUser = (userData: object) => {
+    user.value = userData;
+  };
+  const logout = () => {
+    const router = useRouter();
+    user.value = {};
+    token.value = "";
+    localStorage.removeItem("userToken");
+    router.push("/");
+  };
 
-  actions: {},
-
-  persist: true,
+  return { setAuthToken, setAuthUser, token, logout };
 });

@@ -8,7 +8,9 @@
       </div>
     </div>
 
-    <div>
+    <Loading v-if="loading"/>
+
+    <div v-else>
       <table class="table-auto w-full mx-auto">
         <thead class="w-full">
           <tr>
@@ -44,6 +46,7 @@
 </template>
 
 <script setup lang="ts">
+import { useRepositories } from "~/repositories/useRepositories";
 const headers = ref([
   { title: "Reference ID" },
   { title: "Amount" },
@@ -84,6 +87,24 @@ const donors = ref([
     date: "12 Dec, 2020",
   },
 ]);
+
+
+const loading: Ref<boolean> = ref(false);
+
+const fetchAllVendors = async () => {
+  loading.value = true;
+  const { vendorsRepo } = useRepositories(); 
+
+ const reponse = await vendorsRepo.getAllVendors().finally(() => {
+    loading.value = false;
+  });
+ 
+  console.log(reponse) 
+}
+
+onBeforeMount(()=> { 
+  fetchAllVendors()
+})
 </script>
 
 <style lang="scss" scoped>

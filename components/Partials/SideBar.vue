@@ -32,13 +32,13 @@
       <div class="justify-self-end my-4 flex flex-col">
         <div
           class="flex space-x-3.5 flex-end cursor-pointer items-center text-primary-red justify-start rounded-xl px-3.5 py-3 font-medium"
+          @click="logout"
         >
           <span>
             <IconSideBar title="logout" />
           </span>
 
-          <span class="text-[1.125rem]">            Logout
-          </span>
+          <span class="text-[1.125rem]"> Logout </span>
         </div>
       </div>
     </div>
@@ -47,9 +47,13 @@
 
 <script setup lang="ts">
 const route = useRoute()
-const currentActiveRoute = computed(() =>      route.fullPath)
+import { useAuthStore } from '~/store/authentication' 
+const router = useRouter() 
+const  { logout }  = useAuthStore() 
+
+const currentActiveRoute = computed(() => route.fullPath)
 const sideNavs = ref([
-  {    name: "NGOs",     route: "/ngos",    isHovered: false,  },
+  {    name: "NGOs", route: "/ngos", isHovered: false,  },
   {    name: "Donors",     route: "/donors",    isHovered: false,  },
   {    name: "Vendors",     route: "/vendors",    isHovered: false,  },
   {    name: "Beneficiaries",     route: "/beneficiaries",    isHovered: false,  },
@@ -67,7 +71,7 @@ const sideNavs = ref([
   }
 }
 .Logout {
-  &.nuxt-link-active {
+  &.nuxt-link-active { 
     @apply bg-[#E42C66];
   }
 }

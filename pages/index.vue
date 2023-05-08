@@ -68,22 +68,28 @@
               text="Login"
               class="w-full"
               :disabled="loading"
+              :loading="loading"
               @click="login"
             />
           </div>
         </form>
       </div>
+
+      <Loading v-if="loading"/>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { LoginCredentials } from "~/repositories/auth/interface";
-import { useRepositories } from "~/repositories/useRepositories";
-
 definePageMeta({
   layout: "auth",
 });
+
+import { LoginCredentials } from "~/repositories/auth/interface";
+import { useRepositories } from "~/repositories/useRepositories";
+import { useAuthStore } from '~/store/authentication'  
+import { storeToRefs } from 'pinia'
+const router = useRouter()
 
 const showPassword: Ref<boolean> = ref(false);
 const loading: Ref<boolean> = ref(false);
@@ -92,15 +98,36 @@ const payload = ref<LoginCredentials>({
   password: "",
 });
 
+// store getters
+  const userToken = computed(() => store.token)
+
+// store action 
+const { setAuthUser, setAuthToken, logout } = useAuthStore()
+
+
+// 
 const login = async () => {
   loading.value = true;
   const { auth } = useRepositories();
   const authData = await auth.login(payload.value).finally(() => {
     loading.value = false;
-  });
-
-  console.log("authData", authData);
+  }); 
+   
+  const {token, user} = await authData.data
+  if (!token || !user) return 
+  setAuthToken(token) 
+  setAuthUser(user) 
+  router.push('/ngos') 
 };
+
+onBeforeMount(() => {
+   const userToken = localStorage.getItem("userToken")
+   if(!userToken) return logout()
+  
+    router.push('/ngos')
+})
+
+
 </script>
 
 <style lang="scss" scoped>
