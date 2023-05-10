@@ -25,7 +25,7 @@
 
         <tbody>
           <tr
-            v-for="(donor, index) in donors"
+            v-for="(donor, index) in vendors"
             :key="index"
             class="cursor-pointer"
             :class="index % 2 != 0 && 'bg-[#FCFCFE]'"
@@ -55,7 +55,7 @@ const headers = ref([
   { title: "Actions" },
 ]);
 
-const donors = ref([
+const vendors = ref([
   {
     name: "Blue Orange Foundation",
     amount: "$123,476,000",
@@ -100,6 +100,7 @@ const fetchAllVendors = async () => {
   });
  
   console.log(reponse) 
+// vendors.value =reponse.data
 }
 
 onBeforeMount(()=> { 

@@ -20,7 +20,7 @@
     />
 
     <div class="mt-6">
-      <TablesVendorsTransactions />
+      <TablesVendors />
     </div>
   </div>
 </template>

@@ -17,6 +17,7 @@
             <th
               class="bg-[#f7f7f7] text-base font-medium px-6 py-4"
               v-for="(header, index) in headers"
+              :class="index == 0 && 'text-left'"
             >
               {{ header.title }}
             </th>
@@ -30,12 +31,12 @@
             class="cursor-pointer"
             :class="index % 2 != 0 && 'bg-[#FCFCFE]'"
           >
-            <td>{{ vendor.name }}</td>
+            <td>{{ vendor.first_name }} {{ vendor.last_name }}</td>
             <td>{{ vendor.email }}</td>
-            <td>{{ vendor.amount }}</td>
-            <td class="">{{ vendor.ngo_campaign_ratio }}</td>
+            <td>{{ formatMoney(vendor.total_amount_sold )}}</td>
+            <td class="">{{ vendor.total_ngos }} / {{ vendor.total_campaign }}   </td>
                  <td> 
-            <span class="text-xs px-2 py-[.35rem] rounded-2xl capitalize" :class="vendor.status == 'active' ? 'text-[#337138] bg-[#D1F7C4]' : 'text-[#3D435E] bg-[#E7EBF3]'"> {{ vendor.status }} </span>
+            <span class="text-xs px-2 py-[.35rem] rounded-2xl capitalize" :class="vendor?.status == 'active' ? 'text-[#337138] bg-[#D1F7C4]' : 'text-[#3D435E] bg-[#E7EBF3]'"> {{ vendor.status || 'pending' }} </span>
             </td>
 
 
@@ -57,8 +58,10 @@
   </div>
 </template>
 
-<script setup lang='js'>
+<script setup lang='ts'>
 import { useRepositories } from "~/repositories/useRepositories";
+import {formatMoney} from "~/controllers/utils"
+
 const headers = ref([
   { title: "Name" },
   { title: "Email Address" },
@@ -68,15 +71,7 @@ const headers = ref([
   { title: "Actions" },
 ]);
 
-const vendors = ref([
-  {
-    name: "Blue Orange Foundation",
-    email: "test@gmamil.com",
-    amount: "$123,476,000",
-    ngo_campaign_ratio: "3 / 9",
-    status: "active", 
-  },  
-]);
+const vendors = ref([]);
 
 const loading: Ref<boolean> = ref(false);
 
@@ -88,9 +83,10 @@ const fetchAllVendors = async () => {
     loading.value = false;
   });
 
-// vendors.value =reponse.data
   console.log(reponse) 
+vendors.value =reponse.data
 }
+ 
 
 onBeforeMount(()=> { 
   fetchAllVendors()
@@ -102,6 +98,9 @@ onBeforeMount(()=> {
   box-shadow: 0px 3.17px 19.8125px rgba(174, 174, 192, 0.15);
 }
 table >tbody > tr> td  {
-  @apply align-middle   mx-auto   text-base px-6 py-4 ;
+  @apply align-middle  text-center  mx-auto   text-base px-6 py-4 ;
+}
+table > tbody > tr > td:first-child {
+  @apply text-left;
 }
 </style>

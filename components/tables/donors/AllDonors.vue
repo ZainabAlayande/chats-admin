@@ -15,8 +15,9 @@
         <thead class="w-full">
           <tr>
             <th
-              class="bg-[#f7f7f7] text-base font-medium px-6 py-4"
               v-for="(header, index) in headers"
+              class="bg-[#f7f7f7] text-base font-medium px-6 py-4"
+              :class="index == 0 && 'text-left'"
             >
               {{ header.title }}
             </th>
@@ -32,8 +33,12 @@
           >
             <td> {{ donor.name }} </td>
             <td>{{ donor.email }}</td>
-            <td>{{ donor.total_donations }}</td>
-            <td class="">{{ donor.ngo_campaign_ration }}</td>
+            <td>{{ formatMoney(donor.total_donation) }}</td>
+            <td class=""> 
+              {{ donor.total_ngo }} /
+              {{ donor.total_campaign }} 
+              
+            </td>
             <td>
               <span
                 class="text-xs px-2 py-[.35rem] rounded-2xl capitalize"
@@ -66,6 +71,7 @@
 
 <script setup lang="ts">
 import { useRepositories } from "~/repositories/useRepositories";
+import {formatMoney} from "~/controllers/utils"
 const headers = ref([
   { title: "Name" },
   { title: "Email address" },
@@ -75,16 +81,7 @@ const headers = ref([
   { title: "Actions" },
 ]);
 
-const donors = ref([
-  {
-    id: "rf",
-    name: "Hope Spring Initiative",
-    email: "script@gmail.com",
-    total_donations: "$10,050,000",
-    ngo_campaign_ration: "3 / 9",
-    status: "active",
-  },
-]);
+const donors = ref([ ]);
 
 const loading: Ref<boolean> = ref(false);
 
@@ -92,12 +89,13 @@ const fetchDonors = async () => {
   loading.value = true;
   const { donorsRepo } = useRepositories();
 
- const reponse = await donorsRepo.getAllDonors().finally(() => {
+ const response = await donorsRepo.getAllDonors().finally(() => {
     loading.value = false;
   });
-
-// donors.value = reponse.data
-  console.log(reponse) 
+ 
+  console.log(response) 
+  donors.value = response?.data
+ 
 }
 
 onBeforeMount(()=> {
