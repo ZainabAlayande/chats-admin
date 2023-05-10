@@ -117,7 +117,7 @@ const login = async () => {
   if (!token || !user) return 
   setAuthToken(token) 
   setAuthUser(user) 
-  router.push('/ngos') 
+  router.go(-1) 
 };
 
 onBeforeMount(() => {

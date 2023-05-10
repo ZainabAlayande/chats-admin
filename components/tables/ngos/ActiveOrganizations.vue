@@ -17,6 +17,7 @@
             <th
               class="bg-[#f7f7f7] text-base font-medium px-6 py-4"
               v-for="(header, index) in headers"
+              :class="index == 0 && 'text-left'"
             >
               {{ header.title }}
             </th>
@@ -36,8 +37,8 @@
               </nuxt-link>
             </td>
             <td>{{ organization.email }}</td>
-            <td>{{ organization.disbursed }}</td>
-            <td class="">{{ organization.beneficiaries }}</td>
+            <td>{{ formatMoney(organization.disbursedSum) }}</td>
+            <td class="">{{ organization.beneficiary_count }}</td>
             <td>
               <span
                 class="text-xs px-2 py-[.35rem] rounded-2xl capitalize"
@@ -72,6 +73,7 @@
 
 <script setup lang="ts"> 
 import { useRepositories } from "~/repositories/useRepositories";
+import {formatMoney} from "~/controllers/utils"
 
 const headers = ref([
   { title: "Name" },
@@ -82,16 +84,8 @@ const headers = ref([
   { title: "Actions" },
 ]);
  
-const organizations = ref([
-  {
-    id: "rf",
-    name: "daniel",
-    email: "test@gmail.com",
-    disbursed: "40,888",
-    beneficiaries: "5,077",
-    status: "active",
-  }, 
-]);
+const organizations = ref([ ]); 
+
 const loading: Ref<boolean> = ref(false);
 
 const fetchNGOs = async () => {
@@ -103,6 +97,7 @@ const fetchNGOs = async () => {
   });
  console.log(response)
   organizations.value = response?.data
+
 } 
 
 onBeforeMount(()=> { fetchNGOs() })

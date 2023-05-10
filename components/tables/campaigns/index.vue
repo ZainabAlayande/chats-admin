@@ -17,6 +17,7 @@
             <th
               class="bg-[#f7f7f7] text-base font-medium px-6 py-4"
               v-for="(header, index) in headers"
+              :class="index == 0 && 'text-left'"
             >
               {{ header.title }}
             </th>
@@ -32,18 +33,16 @@
           >
             <td>
             <nuxt-link :to="`campaigns/${ campaign.id}`"> 
-            {{ campaign.name }}
+            {{ campaign.title }}
             </nuxt-link>
             </td>
-            <td>{{ campaign.total }}</td>
-            <td>{{ campaign.amount_spent }}</td>
-            <td class="">{{ campaign.date_created }}</td>
+            <td>{{formatMoney(campaign.total_amount)}} </td>
+            <td>{{ formatMoney(campaign.total_amount_spent) }}</td>
+            <td class="">{{ formatDate(campaign.createdAt) }}</td>
             <td> 
             <span class="text-xs px-2 py-[.35rem] rounded-2xl capitalize" :class="campaign.status == 'active' ? 'text-[#337138] bg-[#D1F7C4]' : 'text-[#3D435E] bg-[#E7EBF3]'"> {{ campaign.status }} </span>
             </td>
-
-           
-
+ 
             <td> 
                 <Button
                   :hasBorder="true"
@@ -63,6 +62,8 @@
 
 <script setup lang='ts'>
 import { useRepositories } from "~/repositories/useRepositories";
+import {formatMoney, formatDate} from "~/controllers/utils"
+
 const headers = ref([
   { title: "Name" },
   { title: "Total Amount" },
@@ -93,10 +94,10 @@ const fetchCampigns = async () => {
     loading.value = false;
   });
 
-// organizations.value =reponse.data
+campaigns.value =reponse.data
   console.log(reponse) 
 }
-
+ 
 onBeforeMount(()=> {
   fetchCampigns()
 })
@@ -108,5 +109,8 @@ onBeforeMount(()=> {
 }
 table >tbody > tr> td  {
   @apply align-middle  text-center  text-base px-6 py-4 ;
+}
+table > tbody > tr > td:first-child {
+  @apply text-left;
 }
 </style>

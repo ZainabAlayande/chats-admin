@@ -8,7 +8,6 @@
     @click="clickBtn"
   >
       <IconSpinner v-if="loading"  class="animate-spin"/>
-  
 
     <!-- button icons -->
     <span v-if="hasIcon">
