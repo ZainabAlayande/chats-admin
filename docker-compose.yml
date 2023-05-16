@@ -12,6 +12,6 @@ services:
       - gateway
     restart: unless-stopped
 
-networks:
-  gateway:
-    driver: bridge
+# networks:
+#   gateway:
+#     driver: bridge
