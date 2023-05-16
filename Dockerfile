@@ -18,4 +18,4 @@ ENV PORT 3088
 
 EXPOSE ${PORT}
 
-CMD ["yarn", "generate" ]
+CMD ["yarn", "dev" ]
