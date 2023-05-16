@@ -18,4 +18,4 @@ ENV PORT 3088
 
 EXPOSE ${PORT}
 
-CMD ["yarn", "dev" ]
+ENTRYPOINT ["node", ".output/server/index.mjs"]
