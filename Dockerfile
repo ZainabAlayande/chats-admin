@@ -2,7 +2,7 @@ FROM node:18-alpine as build
 
 WORKDIR /godmode
 
-COPY . ./
+COPY . /godmode
 
 RUN yarn install \
   --prefer-offline \
