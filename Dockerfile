@@ -16,7 +16,7 @@ FROM node:18-alpine
 
 WORKDIR /godmode
 
-COPY --from=build /app/.output ./
+COPY --from=build /godmode/.output ./
 ENV HOST 0.0.0.0
 
 ENV PORT 3088
