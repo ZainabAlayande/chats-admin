@@ -12,12 +12,10 @@ RUN yarn install \
 
 RUN yarn build
 
-ENV PATH ./node_modules/.bin/:$PATH
-
 ENV HOST 0.0.0.0
 
 ENV PORT 3088
 
 EXPOSE ${PORT}
 
-CMD  ["yarn", "dev"]
+ENTRYPOINT  ["node", ".output/server/index.mjs ]
