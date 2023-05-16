@@ -1,8 +1,8 @@
-FROM node:18-alpine as builder
+FROM node:18-alpine as build
 
 WORKDIR /godmode
 
-COPY . .
+COPY . ./
 
 RUN yarn install \
   --prefer-offline \
@@ -10,25 +10,17 @@ RUN yarn install \
   --non-interactive \
   --production=false
 
-RUN rm -rf node_modules && \
-  NODE_ENV=production yarn install \
-  --prefer-offline \
-  --pure-lockfile \
-  --non-interactive \
-  --production=true
+RUN yarn build
 
 FROM node:18-alpine
 
 WORKDIR /godmode
 
-COPY --from=builder /godmode  .
-
-RUN yarn build
-
+COPY --from=build /app/.output ./
 ENV HOST 0.0.0.0
 
 ENV PORT 3088
 
 EXPOSE ${PORT}
 
-ENTRYPOINT ["node", ".output/server/index.mjs"]
+CMD ["node", "/app/server/index.mjs"]
