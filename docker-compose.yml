@@ -8,8 +8,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - 3088:3088
-    networks:
-      - gateway
+    # networks:
+    #   - gateway
     restart: unless-stopped
 
 # networks:
