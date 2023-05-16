@@ -20,4 +20,4 @@ ENV PORT 3088
 
 EXPOSE ${PORT}
 
-CMD [ "yarn", "dev" ]
+RUN  yarn dev
