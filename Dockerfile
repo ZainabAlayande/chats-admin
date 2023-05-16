@@ -2,7 +2,7 @@ FROM node:18-alpine
 
 WORKDIR /godmode
 
-COPY ./package.json /godmode/
+COPY ..
 
 RUN yarn install \
   --prefer-offline \
@@ -18,4 +18,4 @@ ENV PORT 3088
 
 EXPOSE ${PORT}
 
-ENTRYPOINT  ["node", ".output/server/index.mjs ]
+ENTRYPOINT ["node", ".output/server/index.mjs" ]
