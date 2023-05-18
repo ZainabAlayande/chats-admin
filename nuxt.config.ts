@@ -13,7 +13,7 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ["@pinia/nuxt", "@pinia-plugin-persistedstate/nuxt", 'nuxt-snackbar'],
+  modules: ["@pinia/nuxt", "@pinia-plugin-persistedstate/nuxt"],
 
   pinia: {
     autoImports: [
@@ -21,12 +21,6 @@ export default defineNuxtConfig({
       "defineStore", // import { defineStore } from 'pinia'
       ["defineStore", "definePiniaStore"], // import { defineStore as definePiniaStore } from 'pinia'
     ],
-  },
-
-  snackbar: {
-    top: true,
-    right: true,
-    duration: 5000
   },
 
   runtimeConfig: {

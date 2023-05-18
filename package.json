@@ -38,8 +38,8 @@
         "chart.js": "^4.2.1",
         "chartjs-plugin-datalabels": "^2.2.0",
         "husky": "^8.0.3",
-        "nuxt-snackbar": "^1.0.3",
         "pinia": "^2.0.35",
-        "vue-chartjs": "^5.2.0"
+        "vue-chartjs": "^5.2.0",
+        "vue-toastification": "^2.0.0-rc.5"
     }
 }
