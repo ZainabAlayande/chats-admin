@@ -52,13 +52,6 @@
 </template>
 
 <script setup lang="ts">
-onBeforeMount(() => {
-  const router = useRouter()
-  const userToken = localStorage.getItem("userToken")
-  if (!userToken) return router.push('/')
-
-
-})
 
 const modalId = ref('')
 const selectedOptionId = ref("password_and_2fa")
