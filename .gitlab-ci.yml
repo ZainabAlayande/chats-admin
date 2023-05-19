@@ -45,7 +45,8 @@ build:
     - npm run build
   artifacts:
     paths:
-      - /dist
+      - echo $CI_PROJECT_DIR/
+      - ./dist
     expire_in: 1 hour
 
 deploy_staging:
