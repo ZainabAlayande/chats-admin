@@ -52,12 +52,9 @@
 </template>
 
 <script setup lang="ts">
-onBeforeMount(() => {
-  const router = useRouter()
-  const userToken = localStorage.getItem("userToken")
-  if (!userToken) return router.push('/')
 
-
+definePageMeta({
+  middleware: 'auth'
 })
 
 const modalId = ref('')
