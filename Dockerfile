@@ -2,13 +2,9 @@ FROM node:18-alpine
 
 WORKDIR /godmode
 
-COPY package.json ./
+COPY . ./
 
-RUN yarn install \
-  --prefer-offline \
-  --frozen-lockfile \
-  --non-interactive \
-  --production=false
+RUN yarn install --prefer-offline --frozen-lockfile --non-interactive
 
 RUN yarn build
 
@@ -18,4 +14,4 @@ ENV PORT 3088
 
 EXPOSE ${PORT}
 
-CMD [ "yarn", "dev" ]
+ENTRYPOINT ["node", ".output/server/index.mjs"]

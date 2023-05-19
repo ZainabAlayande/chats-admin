@@ -17,6 +17,7 @@
             <th
               class="bg-[#f7f7f7] text-base font-medium px-6 py-4"
               v-for="(header, index) in headers"
+              :class="index == 0 && 'text-left'"
             >
               {{ header.title }}
             </th>
@@ -25,30 +26,30 @@
 
         <tbody>
           <tr
-            v-for="(organization, index) in beneficiaries"
+            v-for="(beneficiary, index) in beneficiaries"
             :key="index"
             class="cursor-pointer"
             :class="index % 2 != 0 && 'bg-[#FCFCFE]'"
           >
             <td class="title">
-              <nuxt-link :to="`beneficiaries/${organization.id}`">
-                {{ organization.name }}
+              <nuxt-link :to="`beneficiaries/${beneficiary.id}`">
+             {{ beneficiary.first_name }} {{ beneficiary.last_name }}
               </nuxt-link>
             </td>
 
-            <td>{{ organization.email }}</td>
-            <td>{{ organization.amount }}</td>
-            <td>{{ organization.campaigns }}</td>
+            <td>{{ beneficiary.email }}</td>
+            <td>{{ formatMoney(beneficiary.total_amount_spent) }}</td>
+            <td>{{ beneficiary.total_campaign }}</td>
             <td>
               <span
                 class="text-xs px-2 py-[.35rem] rounded-2xl capitalize"
                 :class="
-                  organization.status == 'active'
+                  beneficiary.status == 'active'
                     ? 'text-[#337138] bg-[#D1F7C4]'
                     : 'text-[#3D435E] bg-[#E7EBF3]'
                 "
               >
-                {{ organization.status }}
+                {{ beneficiary.status }}
               </span>
             </td>
 
@@ -57,10 +58,10 @@
                 :hasBorder="true"
                 :hasIcon="false"
                 :text="
-                  organization.status == 'active' ? 'Deactivate' : 'Activate'
+                  beneficiary.status == 'active' ? 'Deactivate' : 'Activate'
                 "
-                :isGray="organization.status == 'active'"
-                :disabled="organization.status == 'active'"
+                :isGray="beneficiary.status == 'active'"
+                :disabled="beneficiary.status == 'active'"
                 class="text-[.875rem] !py-2 !px-3"
               />
             </td>
@@ -73,6 +74,8 @@
 
 <script setup lang="ts">
 import { useRepositories } from "~/repositories/useRepositories";
+import {formatMoney} from "~/controllers/utils"
+
 const headers = ref([
   { title: "Name" },
   { title: "Email address" },
@@ -82,16 +85,7 @@ const headers = ref([
   { title: "Actions" },
 ]);
 
-const beneficiaries = ref([
-  {
-    id: "rf",
-    name: "Janet Woodpecker",
-    email: "test@gmail.com",
-    amount: "40,888",
-    campaigns: "3",
-    status: "active",
-  },  
-]);
+const beneficiaries = ref([ ]);
 
 const loading: Ref<boolean> = ref(false);
 const fetchBeneficiaries = async () => {
@@ -102,10 +96,10 @@ const fetchBeneficiaries = async () => {
     loading.value = false;
   });
 
-// beneficiaries.value = reponse.data
   console.log(reponse) 
+beneficiaries.value = reponse.data
 }
-
+ 
 onBeforeMount(()=> {
   fetchBeneficiaries()
 })
