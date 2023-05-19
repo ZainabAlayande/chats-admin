@@ -74,8 +74,6 @@
           </div>
         </form>
       </div>
-
-      <Loading v-if="loading"/>
     </div>
   </div>
 </template>
