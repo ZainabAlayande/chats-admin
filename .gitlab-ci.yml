@@ -42,7 +42,7 @@ build:
   stage: build
   script:
     - npm install
-    - npm run build
+    - npm run generate
   artifacts:
     paths:
       - .output
