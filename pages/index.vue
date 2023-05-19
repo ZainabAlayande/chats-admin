@@ -82,7 +82,6 @@
 definePageMeta({
   layout: "auth",
 });
-
 import { LoginCredentials } from "~/repositories/auth/interface";
 import { useRepositories } from "~/repositories/useRepositories";
 import { useAuthStore } from '~/store/authentication'  

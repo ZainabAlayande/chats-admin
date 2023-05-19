@@ -53,10 +53,6 @@
 
 <script setup lang="ts">
 
-definePageMeta({
-  middleware: 'auth'
-})
-
 const modalId = ref('')
 const selectedOptionId = ref("password_and_2fa")
 const settingsOptions = ref([
