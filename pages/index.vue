@@ -117,12 +117,6 @@ const login = async () => {
   router.go(-1) 
 };
 
-onBeforeMount(() => {
-   const userToken = localStorage.getItem("userToken")
-   if(!userToken) return logout()
-  
-    router.push('/ngos')
-})
 
 
 </script>
