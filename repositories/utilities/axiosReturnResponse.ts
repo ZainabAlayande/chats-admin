@@ -1,12 +1,12 @@
 import { AxiosError, AxiosResponse } from "axios";
 import { useAuthStore } from "~/store/authentication";
-import { useToast } from "vue-toastification";
+import * as Toast from "vue-toastification";
 // import Vue from "vue";
 
 export const HandleAxiosError = (error: AxiosError) => {
   const authStore = useAuthStore();
   const { logout } = authStore;
-  const toast = useToast();
+  const toast = Toast.useToast();
 
 
   toast.error(error.response?.data?.message)
