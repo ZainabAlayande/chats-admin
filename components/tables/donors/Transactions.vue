@@ -8,46 +8,36 @@
       </div>
     </div>
 
-    <div>
+    <Loading v-if="loading" />
+
+    <div v-else>
       <table class="table-auto w-full">
         <thead class="w-full">
           <tr>
-            <th
-              class="bg-[#f7f7f7] text-base font-medium px-6 py-4"
-              v-for="(header, index) in headers"
-            >
+            <th class="bg-[#f7f7f7] text-base font-medium px-6 py-4" v-for="(header, index) in headers"
+              :class="index == 0 && 'text-left'">
               {{ header.title }}
             </th>
           </tr>
         </thead>
 
-        <tbody>
-          <tr
-            v-for="(donor, index) in donors"
-            :key="index"
-            class="cursor-pointer"
-            :class="index % 2 != 0 && 'bg-[#FCFCFE]'"
-          >
-            <td>{{ donor.name }}</td>
-            <td>{{ donor.amount }}</td>
-            <td>{{ donor.campaign }}</td>
-            <td class="">{{ donor.date }}</td>
-            <td> 
-            <span class="text-xs px-2 py-[.35rem] rounded-2xl " 
-            :class="donor.type == 'funding' ? ' text-[#337138] bg-[#D1F7C4]' : ' text-[#FF4B55] bg-[#FFCDC7]' " > {{ donor.type }} </span>
+        <tbody v-if="transactions.length > 0">
+          <tr v-for="(transaction, index) in transactions" :key="transaction.reference" class="cursor-pointer"
+            :class="index % 2 != 0 && 'bg-[#FCFCFE]'">
+            <td>{{ transaction.reference }}</td>
+            <td>{{ formatMoney(transaction.amount) }}</td>
+            <td class="">{{ transaction.status }}</td>
+            <td class="">{{formatDate(transaction.createdAt)}}</td>
+            <td>
+              <span class="text-xs px-2 py-[.35rem] rounded-2xl "
+                :class="transaction.transaction_type == 'approval' ? ' text-[#337138] bg-[#D1F7C4]' : ' text-[#FF4B55] bg-[#FFCDC7]'">
+                {{ transaction.transaction_type }} </span>
             </td>
 
-           
-
-            <td> 
-                <Button
-                  :hasBorder="true"
-                  :hasIcon="false" 
-                  text="Approve" 
-                  class="text-[.875rem] !py-2 !px-3"
-                /> 
+            <td>
+              <Button :hasBorder="true" :hasIcon="false" text="Approve" class="text-[.875rem] !py-2 !px-3" />
             </td>
- 
+
           </tr>
         </tbody>
       </table>
@@ -55,60 +45,101 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+
+import { useRepositories } from "~/repositories/useRepositories";
+import { formatDate, formatMoney } from "~/controllers/utils"
 const headers = ref([
-  { title: "Donor" },
+  { title: "Reference ID" },
   { title: "Amount" },
-  { title: "Campaign" },
+  { title: "Status" },
   { title: "Date" },
   { title: "Type" },
+  // { title: "Campaign" },
   { title: "Actions" },
 ]);
 
-const donors = ref([
-  {
-    name: "Blue Orange Foundation",
-    amount: "$123,476,000",
-    campaign: "Feed the poor",
-    date: "12 Dec, 2020",
-    type: "withdraw request", 
-  },   
-  {
-    name: "Blue Orange Foundation",
-    amount: "$123,476,000",
-    campaign: "Feed the poor",
-    date: "12 Dec, 2020",
-    type: "funding", 
-  },   
-  {
-    name: "Blue Orange Foundation",
-    amount: "$123,476,000",
-    campaign: "Feed the poor",
-    date: "12 Dec, 2020",
-    type: "withdraw request", 
-  },   
-  {
-    name: "Blue Foundation",
-    amount: "$123,476,000",
-    campaign: "Feed the poor",
-    date: "12 Dec, 2021",
-    type: "funding", 
-  },   
-  {
-    name: "Orange Foundation",
-    amount: "$123,476,000",
-    campaign: "Feed the poor",
-    date: "18 Dec, 2020",
-    type: "withdraw request", 
-  },   
+const transactions: Ref<any[]> = ref([
 ]);
+
+const swal = Swal.mixin({
+  customClass: {
+    confirmButton: 'bg-primary-green rounded-xl px-3.5 py-3 font-medium ml-2 text-white',
+    // cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
+
+const route = useRoute()
+const loading: Ref<boolean> = ref(false);
+  const { donorsRepo } = useRepositories();
+
+
+const fetchTransactions = async () => {
+  loading.value = true;
+
+ const response = await donorsRepo.getDonorTransactions(route.params.id).finally(() => {
+    loading.value = false
+  });
+ 
+  // console.log(response) 
+  transactions.value = response?.data.splice(0, 8)
+ 
+}
+
+onBeforeMount(()=> {
+  fetchTransactions()
+})
+
+const handleChangeStatus = (data: UpdateStatus) => {
+  swal.fire({
+    title: 'Proceed ?',
+    // text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, proceed!',
+    cancelButtonText: 'No, cancel!',
+    reverseButtons: true
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // swal.fire(
+      //   'Deleted!',
+      //   'Your file has been deleted.',
+      //   'success'
+      // )
+
+      handleUpdateStatus(data)
+    } else if (
+      /* Read more about handling dismissals below */
+      result.dismiss === Swal.DismissReason.cancel
+    ) {
+      // swal.fire(
+      //   'Cancelled',
+      //   'Your imaginary file is safe :)',
+      //   'error'
+      // )
+    }
+  })
+}
+
+const handleUpdateStatus = async (data: UpdateStatus) => {
+  // console.table('DATAAA', data)
+  await donorsRepo.approveRejectRequest(data)
+  fetchDonors()
+}
+
 </script>
 
 <style lang="scss" scoped>
 .main {
   box-shadow: 0px 3.17px 19.8125px rgba(174, 174, 192, 0.15);
 }
-table >tbody > tr> td  {
-  @apply align-middle   text-base px-6 py-4 ;
+
+table > tbody > tr > td {
+  @apply align-middle text-center  mx-auto   text-base px-6 py-4;
+}
+table > tbody > tr > td:first-child {
+  @apply text-left;
 }
 </style>

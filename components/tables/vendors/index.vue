@@ -8,49 +8,39 @@
       </div>
     </div>
 
-   <Loading v-if="loading"/>
+    <Loading v-if="loading" />
 
     <div v-else>
       <table class="table-auto w-full mx-auto">
         <thead class="w-full">
           <tr>
-            <th
-              class="bg-[#f7f7f7] text-base font-medium px-6 py-4"
-              v-for="(header, index) in headers"
-              :class="index == 0 && 'text-left'"
-            >
+            <th class="bg-[#f7f7f7] text-base font-medium px-6 py-4" v-for="(header, index) in headers"
+              :class="index === 0 && 'text-left'">
               {{ header.title }}
             </th>
           </tr>
         </thead>
 
         <tbody>
-          <tr
-            v-for="(vendor, index) in vendors"
-            :key="index"
-            class="cursor-pointer"
-            :class="index % 2 != 0 && 'bg-[#FCFCFE]'"
-          >
+          <tr v-for="(vendor, index) in vendors" :key="vendor.email" class="cursor-pointer"
+            :class="index % 2 != 0 && 'bg-[#FCFCFE]'" @click.stop="$router.push(`/vendors/${vendor.id}`)">
             <td>{{ vendor.first_name }} {{ vendor.last_name }}</td>
             <td>{{ vendor.email }}</td>
-            <td>{{ formatMoney(vendor.total_amount_sold )}}</td>
-            <td class="">{{ vendor.total_ngos }} / {{ vendor.total_campaign }}   </td>
-                 <td> 
-            <span class="text-xs px-2 py-[.35rem] rounded-2xl capitalize" :class="vendor?.status == 'active' ? 'text-[#337138] bg-[#D1F7C4]' : 'text-[#3D435E] bg-[#E7EBF3]'"> {{ vendor.status || 'pending' }} </span>
+            <td>{{ formatMoney(vendor.total_amount_sold) }}</td>
+            <td class="">{{ vendor.total_ngos }} / {{ vendor.total_campaign }} </td>
+            <td>
+              <span class="text-xs px-2 py-[.35rem] rounded-2xl capitalize"
+                :class="vendor?.status === 'activated' ? 'text-[#337138] bg-[#D1F7C4]' : 'text-[#3D435E] bg-[#E7EBF3]'"> {{
+                  vendor.status || 'pending' }} </span>
             </td>
 
 
-            <td> 
-                <Button
-                  :hasBorder="true"
-                  :hasIcon="false" 
-                  :text="vendor.status == 'active' ? 'Deactivate' : 'Activate'"
-                  :isGray="vendor.status == 'active'"
-                  :disabled="vendor.status == 'active'"
-                  class="text-[.875rem] !py-2 !px-3"
-                /> 
+            <td
+              @click.stop="handleChangeStatus({ userId: vendor.id, status: vendor?.status === 'activated' ? 'suspended' : 'activated' })">
+              <Button :hasBorder="true" :hasIcon="false" :text="vendor.status === 'activated' ? 'Deactivate' : 'Activate'"
+                :isGray="vendor?.status === 'activated'" class="text-[.875rem] !py-2 !px-3" />
             </td>
- 
+
           </tr>
         </tbody>
       </table>
@@ -59,8 +49,10 @@
 </template>
 
 <script setup lang='ts'>
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import { UpdateStatus } from "~/repositories/donors";
 import { useRepositories } from "~/repositories/useRepositories";
-import {formatMoney} from "~/controllers/utils"
+import { formatMoney } from "~/controllers/utils"
 
 const headers = ref([
   { title: "Name" },
@@ -71,36 +63,84 @@ const headers = ref([
   { title: "Actions" },
 ]);
 
-const vendors = ref([]);
+const swal = Swal.mixin({
+  customClass: {
+    confirmButton: 'bg-primary-green rounded-xl px-3.5 py-3 font-medium ml-2 text-white',
+    // cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
+
+const vendors: Ref<any[]> = ref([]);
 
 const loading: Ref<boolean> = ref(false);
 
+const { vendorsRepo, donorsRepo } = useRepositories();
+
 const fetchAllVendors = async () => {
   loading.value = true;
-  const { vendorsRepo } = useRepositories(); 
 
- const reponse = await vendorsRepo.getAllVendors().finally(() => {
+  const reponse = await vendorsRepo.getAllVendors().finally(() => {
     loading.value = false;
   });
 
-  console.log(reponse) 
-vendors.value =reponse.data
+  // console.log(reponse)
+  vendors.value = reponse.data
 }
- 
 
-onBeforeMount(()=> { 
+
+onBeforeMount(() => {
   fetchAllVendors()
 })
+
+const handleChangeStatus = (data: UpdateStatus) => {
+  swal.fire({
+    title: 'Proceed ?',
+    // text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, proceed!',
+    cancelButtonText: 'No, cancel!',
+    reverseButtons: true
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // swal.fire(
+      //   'Deleted!',
+      //   'Your file has been deleted.',
+      //   'success'
+      // )
+
+      handleProceed(data)
+    } else if (
+      /* Read more about handling dismissals below */
+      result.dismiss === Swal.DismissReason.cancel
+    ) {
+      // swal.fire(
+      //   'Cancelled',
+      //   'Your imaginary file is safe :)',
+      //   'error'
+      // )
+    }
+  })
+}
+
+const handleProceed = async (data: UpdateStatus) => {
+  // console.table('DATAAA', data)
+  await donorsRepo.updateStatus(data)
+  fetchAllVendors()
+}
 </script>
 
 <style lang="scss" scoped>
 .main {
   box-shadow: 0px 3.17px 19.8125px rgba(174, 174, 192, 0.15);
 }
-table >tbody > tr> td  {
-  @apply align-middle  text-center  mx-auto   text-base px-6 py-4 ;
+
+table>tbody>tr>td {
+  @apply align-middle text-center mx-auto text-base px-6 py-4;
 }
-table > tbody > tr > td:first-child {
+
+table>tbody>tr>td:first-child {
   @apply text-left;
 }
 </style>

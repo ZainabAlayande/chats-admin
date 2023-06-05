@@ -8,34 +8,27 @@
       </div>
     </div>
 
-    <Loading v-if="loading"/>
+    <Loading v-if="loading" />
 
     <div v-else>
       <table class="table-auto w-full mx-auto">
         <thead class="w-full">
           <tr>
-            <th
-              class="bg-[#f7f7f7] text-base font-medium px-6 py-4"
-              v-for="(header, index) in headers"
-            >
+            <th class="bg-[#f7f7f7] text-base font-medium px-6 py-4" v-for="(header, index) in headers" :class="index == 0 && 'text-left'">
               {{ header.title }}
             </th>
           </tr>
         </thead>
 
         <tbody>
-          <tr
-            v-for="(donor, index) in vendors"
-            :key="index"
-            class="cursor-pointer"
-            :class="index % 2 != 0 && 'bg-[#FCFCFE]'"
-          >
-            <td>{{ donor.name }}</td>
-            <td>{{ donor.amount }}</td>
-            <td>{{ donor.beneficiary }}</td>
-            <td>{{ donor.date }}</td>
+          <tr v-for="(transaction, index) in transactions" :key="transaction.uuid" class="cursor-pointer"
+            :class="index % 2 != 0 && 'bg-[#FCFCFE]'">
+            <td>{{ transaction.reference }}</td>
+            <td>{{ formatMoney(transaction.amount) }}</td>
+            <td>{{ transaction.beneficiary.first_name }} {{ transaction.beneficiary.last_name }}</td>
+            <td>{{ formatDate(transaction.createdAt) }}</td>
 
-            <td>
+            <td class="text-right">
               <IconEllipsis />
             </td>
           </tr>
@@ -47,6 +40,8 @@
 
 <script setup lang="ts">
 import { useRepositories } from "~/repositories/useRepositories";
+import { formatDate, formatMoney } from "~/controllers/utils"
+
 const headers = ref([
   { title: "Reference ID" },
   { title: "Amount" },
@@ -55,67 +50,43 @@ const headers = ref([
   { title: "Actions" },
 ]);
 
-const vendors = ref([
-  {
-    name: "Blue Orange Foundation",
-    amount: "$123,476,000",
-    beneficiary: "Feed the poor",
-    date: "12 Dec, 2020",
-  },
-  {
-    name: "Blue Orange Foundation",
-    amount: "$123,476,000",
-    beneficiary: "Feed the poor",
-    date: "12 Dec, 2020",
-  },
-  {
-    name: "Blue Orange Foundation",
-    amount: "$123,476,000",
-    beneficiary: "Feed the poor",
-    date: "12 Dec, 2020",
-  },
-  {
-    name: "Blue Orange Foundation",
-    amount: "$123,476,000",
-    beneficiary: "Feed the poor",
-    date: "12 Dec, 2020",
-  },
-  {
-    name: "Blue Orange Foundation",
-    amount: "$123,476,000",
-    beneficiary: "Feed the poor",
-    date: "12 Dec, 2020",
-  },
-]);
+const transactions: Ref<any[]> = ref([]);
+
+const { vendorsRepo } = useRepositories();
+
 
 
 const loading: Ref<boolean> = ref(false);
-
-const fetchAllVendors = async () => {
+const route = useRoute()
+const fetchAllTransactions = async () => {
   loading.value = true;
-  const { vendorsRepo } = useRepositories(); 
 
- const reponse = await vendorsRepo.getAllVendors().finally(() => {
+  const response = await vendorsRepo.getVendorTransactions(route.params.id as (string | number)).finally(() => {
     loading.value = false;
   });
- 
-  console.log(reponse) 
-// vendors.value =reponse.data
+
+  console.log('FENDORRRR',response.data) 
+  transactions.value = response?.data.splice(0, 8)
+
 }
 
-onBeforeMount(()=> { 
-  fetchAllVendors()
+onBeforeMount(() => {
+  fetchAllTransactions()
 })
+
+
 </script>
 
 <style lang="scss" scoped>
 .main {
   box-shadow: 0px 3.17px 19.8125px rgba(174, 174, 192, 0.15);
 }
-table > tbody > tr > td {
+
+table>tbody>tr>td {
   @apply align-middle text-center mx-auto text-base p-6;
 }
-table > tbody > tr > td:first-child {
-  @apply text-left  mx-auto;
+
+table>tbody>tr>td:first-child {
+  @apply text-left mx-auto;
 }
 </style>

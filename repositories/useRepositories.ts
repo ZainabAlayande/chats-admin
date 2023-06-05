@@ -4,6 +4,7 @@ import * as vendorsRepo from "./vendors/index";
 import * as donorsRepo from "./donors/index";
 import * as beneficiariesRepo from "./beneficiaries/index";
 import * as campaignsRepo from "./campaigns/index";
+import * as withdrawalsRepo from "./withdrawals/index";
 
 export function useRepositories() {
   return {
@@ -14,5 +15,6 @@ export function useRepositories() {
     donorsRepo,
     beneficiariesRepo,
     campaignsRepo,
+    withdrawalsRepo
   };
 }
