@@ -94,7 +94,7 @@
 
 <script setup lang="ts"> 
 const getInput = (inputValue: any) => {
-  console.log(inputValue)
+  // console.log(inputValue)
 }
 </script>
 <style scoped>

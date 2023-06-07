@@ -50,7 +50,7 @@ const props = defineProps({
 
 const emit = defineEmits(['change'])
 const change = (event: any) => {
-  console.log(event.target.value)
+  // console.log(event.target.value)
 
   emit('change', props.value)
 }

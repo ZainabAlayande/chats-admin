@@ -52,13 +52,13 @@
 
 <script setup lang="ts">  
 const addAuthentication = (id: string) => {
-  console.log('test')
+  // console.log('test')
 }
 const sendCode = () => {
-  console.log('sendCode')
+  // console.log('sendCode')
 }
 const getInput = (inputValue: any) => {
-  console.log(inputValue)
+  // console.log(inputValue)
 }
 </script>
  

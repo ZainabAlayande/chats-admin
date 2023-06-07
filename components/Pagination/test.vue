@@ -9,7 +9,7 @@
   const totalNumOfItems = ref(500) 
 
   const updatePage = (action) => { 
-    console.log(action) 
+    // console.log(action) 
     if (action == "next") return currentPageNum.value += 1 
     if (action == "prev") return currentPageNum.value -= 1 
   }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="addBeneficiary" class="mt-4 px-3 pb-2"> 
+    <form @submit.prevent="$emit('addBeneficiary', payload)" class="mt-4 px-3 pb-2"> 
     <!-- Name Section here  here -->
     <div class="grid grid-cols-2 gap-4 mb-4"> 
       <div class="col-span-1">
@@ -9,8 +9,9 @@
           type="text" 
           id="first-name"
           placeholder="John"
-          v-model="payload.first_name" 
+          v-model.trim="payload.first_name" 
           class="text-base p-4 rounded-md font-normal w-full outline-none ring-0 bg-[#FAFAFA]"
+          required
         />
       </div>
 
@@ -20,8 +21,9 @@
           type="text" 
           id="last-name"
           placeholder="John"
-          v-model="payload.last_name" 
+          v-model.trim="payload.last_name" 
           class="text-base p-4 rounded-md font-normal w-full outline-none ring-0 bg-[#FAFAFA]"
+          required
         />
       </div>
  
@@ -32,8 +34,9 @@
           type="text" 
           id="email"
           placeholder="test@gmail.com"
-          v-model="payload.email" 
+          v-model.trim="payload.email" 
           class="text-base p-4 rounded-md font-normal w-full outline-none ring-0 bg-[#FAFAFA]"
+          required
         /> 
     </div>
 
@@ -42,8 +45,9 @@
         <input
           type="text" 
           id="phone-number"
-          v-model="payload.phone_number" 
+          v-model.trim="payload.phone" 
           class="text-base p-4 rounded-md font-normal w-full outline-none ring-0 bg-[#FAFAFA]"
+          required
         />
       </div>
     </div> 
@@ -52,7 +56,7 @@
       <Button
         type="submit"
         :has-icon="false"
-        text="Save"
+        :text="isSubmitting ? 'Submitting...': 'Save' "
         custom-styles="height:50px; "
         class="px-8" 
       />
@@ -66,11 +70,11 @@ const payload = ref({
 first_name: "",
 last_name: "",
 email: "", 
-phone_number: "",
+phone: "",
 })
 
-const addBeneficiary = () => {
-  console.log(payload.value)
-}
+defineProps(['isSubmitting'])
+
+// const addBeneficiary = () => { $emit('addBeneficiary') }
 </script>
  

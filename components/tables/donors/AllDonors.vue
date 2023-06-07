@@ -41,10 +41,11 @@
               </span>
             </td>
 
-            <td @click.stop="handleChangeStatus({userId: donor.UserId, status: donor.status.toLowerCase() == 'activated' ? 'suspended' : 'activated'})">
-              <Button :hasBorder="true" :hasIcon="false" :text="donor.status.toLowerCase() == 'activated' ? 'Deactivate' : 'Activate'"
-                :isGray="donor.status.toLowerCase() == 'activated'"
-                class="text-[.875rem] !py-2 !px-3" />
+            <td
+              @click.stop="handleChangeStatus({ userId: donor.UserId, status: donor.status.toLowerCase() == 'activated' ? 'suspended' : 'activated' })">
+              <Button :hasBorder="true" :hasIcon="false"
+                :text="donor.status.toLowerCase() == 'activated' ? 'Deactivate' : 'Activate'"
+                :isGray="donor.status.toLowerCase() == 'activated'" class="text-[.875rem] !py-2 !px-3" />
             </td>
           </tr>
         </tbody>
@@ -55,9 +56,10 @@
 
 <script setup lang="ts">
 import Swal from 'sweetalert2/dist/sweetalert2.js'
-import { useRepositories } from "~/repositories/useRepositories";
 import { formatMoney } from "~/controllers/utils"
-import { UpdateStatus } from "~/repositories/donors";
+import { UpdateStatus } from "~/rep";
+import { useToast } from 'vue-toastification';
+
 const headers = ref([
   { title: "Name" },
   { title: "Email address" },
@@ -76,20 +78,22 @@ const swal = Swal.mixin({
 })
 
 const donors: Ref<any[]> = ref([]);
-
 const loading: Ref<boolean> = ref(false);
-
-const { donorsRepo } = useRepositories();
+const { getAllDonors } = useApi()
+const toast = useToast()
 
 
 const fetchDonors = async () => {
   loading.value = true;
-  const response = await donorsRepo.getAllDonors().finally(() => {
-    loading.value = false;
-  });
+  const { data, error } = await useAsyncData('all-donors', () => getAllDonors())
 
-  // console.log(response) 
-  donors.value = response?.data
+  if (data)
+    donors.value = data.value.data.splice(0, 8)
+
+  else if (error)
+    toast.error('Error Fetching Donors')
+
+  loading.value = false;
 
 }
 
@@ -131,8 +135,8 @@ const handleChangeStatus = (data: UpdateStatus) => {
 
 const handleProceed = async (data: UpdateStatus) => {
   // console.table('DATAAA', data)
-  await donorsRepo.updateStatus(data)
-  fetchDonors()
+  // await donorsRepo.updateStatus(data)
+  // fetchDonors()
 }
 </script>
 
@@ -148,5 +152,4 @@ table>tbody>tr>td {
 table>tbody>tr>td:first-child {
   @apply text-left;
 }
-
 </style>

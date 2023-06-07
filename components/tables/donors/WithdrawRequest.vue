@@ -25,7 +25,7 @@
         </thead>
 
         <tbody>
-          <tr v-for="(withdrawal, index) in withdrawals" :key="withdrawal.id + index" class="cursor-pointer" 
+          <tr v-for="(withdrawal, index) in withdrawals" :key="withdrawal.id + index" class="cursor-pointer"
             :class="index % 2 != 0 && 'bg-[#FCFCFE]'">
             <!-- <td>{{ 'nameee' }}</td> -->
             <td>{{ withdrawal?.campaign?.Organisation?.name }}</td>
@@ -56,10 +56,9 @@
 
 <script setup lang="ts">
 import Swal from 'sweetalert2/dist/sweetalert2.js'
-import { UpdateApprovalStatus } from "~/repositories/withdrawals";
-
-import { useRepositories } from "~/repositories/useRepositories";
 import { formatMoney, formatDate } from "~/controllers/utils"
+import { UpdateApprovalStatus } from '~/composables/useApi';
+import { useToast } from 'vue-toastification';
 const headers = ref([
   { title: "Donor" },
   { title: "Amount" },
@@ -69,16 +68,6 @@ const headers = ref([
   { title: "Actions" },
 ]);
 
-// const donors = ref([
-//   {
-//     name: "Blue Orange Foundation",
-//     amount: "$123,476,000",
-//     campaign: "Feed the poor",
-//     date: "12 Dec, 2020",
-//     type: "withdraw request",
-//   },
-// ]);
-
 const swal = Swal.mixin({
   customClass: {
     confirmButton: 'bg-primary-green rounded-xl px-3.5 py-3 font-medium ml-2 text-white',
@@ -86,7 +75,9 @@ const swal = Swal.mixin({
   },
   buttonsStyling: false
 })
-const { withdrawalsRepo } = useRepositories();
+
+const toast = useToast()
+const { approveRejectRequest, getWithdrawalRequests } = useApi();
 
 
 const modalId = ref('')
@@ -97,11 +88,13 @@ const approve = (id: string) => { modalId.value = id }
 const withdrawals: Ref<any[]> = ref([]);
 
 const fetchWithdrawals = async () => {
+  const { data, error } = await useAsyncData('all-withdrawal-requests', () => getWithdrawalRequests())
 
-  const response = await withdrawalsRepo.getWithdrawalRequests()
-  //  console.log('WITHDRAAA', response?.data)
-  withdrawals.value = response?.data.splice(0, 8)
+  if (data)
+    withdrawals.value = data.value.data.splice(0, 8)
 
+  else if (error)
+    toast.error('Error Fetching')
 }
 
 onBeforeMount(() => {
@@ -141,8 +134,19 @@ const handleApproveOrReject = (orgId: string | number, data: UpdateApprovalStatu
 
 const handleProceed = async (orgId: string | number, data: UpdateApprovalStatus) => {
   // console.table('DATAAA', data)
-  await withdrawalsRepo.approveRejectRequest(orgId, data)
-  fetchWithdrawals()
+
+  const { data: res, error } = useAsyncData(() => approveRejectRequest(orgId, data))
+
+  if (res) {
+    toast.success('success')
+    fetchWithdrawals()
+
+  }
+
+  else if (error)
+    toast.error('Something went wrong')
+
+
 }
 
 </script>

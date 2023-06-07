@@ -82,7 +82,7 @@ phone_number: "",
 })
 
 const addOrganization = () => {
-  console.log(organization.value)
+  // console.log(organization.value)
 }
 </script>
  

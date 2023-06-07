@@ -61,7 +61,7 @@
 
 <script setup lang="ts">  
 const submitForm = () => {
-  console.log('test')
+  // console.log('test')
 }
 const emit = defineEmits(['close'])
 const close = () => { emit("close") } 

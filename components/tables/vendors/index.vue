@@ -36,7 +36,7 @@
 
 
             <td
-              @click.stop="handleChangeStatus({ userId: vendor.id, status: vendor?.status === 'activated' ? 'suspended' : 'activated' })">
+              @click.stop="$emit('handleChangeStatus', { userId: vendor.id, status: vendor?.status === 'activated' ? 'suspended' : 'activated' })">
               <Button :hasBorder="true" :hasIcon="false" :text="vendor.status === 'activated' ? 'Deactivate' : 'Activate'"
                 :isGray="vendor?.status === 'activated'" class="text-[.875rem] !py-2 !px-3" />
             </td>
@@ -49,86 +49,19 @@
 </template>
 
 <script setup lang='ts'>
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-import { UpdateStatus } from "~/repositories/donors";
-import { useRepositories } from "~/repositories/useRepositories";
 import { formatMoney } from "~/controllers/utils"
 
-const headers = ref([
-  { title: "Name" },
-  { title: "Email Address" },
-  { title: "Amount sold" },
-  { title: "NGOs / Campaigns" },
-  { title: "Status" },
-  { title: "Actions" },
-]);
-
-const swal = Swal.mixin({
-  customClass: {
-    confirmButton: 'bg-primary-green rounded-xl px-3.5 py-3 font-medium ml-2 text-white',
-    // cancelButton: 'btn btn-danger'
+defineProps({
+  vendors: {
+    type: Array<any>,
+    default: []
   },
-  buttonsStyling: false
+  headers: {
+    type: Array<any>,
+    default: []
+  },
+  loading: Boolean
 })
-
-const vendors: Ref<any[]> = ref([]);
-
-const loading: Ref<boolean> = ref(false);
-
-const { vendorsRepo, donorsRepo } = useRepositories();
-
-const fetchAllVendors = async () => {
-  loading.value = true;
-
-  const reponse = await vendorsRepo.getAllVendors().finally(() => {
-    loading.value = false;
-  });
-
-  // console.log(reponse)
-  vendors.value = reponse.data
-}
-
-
-onBeforeMount(() => {
-  fetchAllVendors()
-})
-
-const handleChangeStatus = (data: UpdateStatus) => {
-  swal.fire({
-    title: 'Proceed ?',
-    // text: "You won't be able to revert this!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Yes, proceed!',
-    cancelButtonText: 'No, cancel!',
-    reverseButtons: true
-  }).then((result) => {
-    if (result.isConfirmed) {
-      // swal.fire(
-      //   'Deleted!',
-      //   'Your file has been deleted.',
-      //   'success'
-      // )
-
-      handleProceed(data)
-    } else if (
-      /* Read more about handling dismissals below */
-      result.dismiss === Swal.DismissReason.cancel
-    ) {
-      // swal.fire(
-      //   'Cancelled',
-      //   'Your imaginary file is safe :)',
-      //   'error'
-      // )
-    }
-  })
-}
-
-const handleProceed = async (data: UpdateStatus) => {
-  // console.table('DATAAA', data)
-  await donorsRepo.updateStatus(data)
-  fetchAllVendors()
-}
 </script>
 
 <style lang="scss" scoped>

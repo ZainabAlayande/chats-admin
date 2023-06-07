@@ -83,7 +83,7 @@ address: "",
 
 
 const addOrganization = () => {
-  console.log(payload.value)
+  // console.log(payload.value)
 }
 </script>
  

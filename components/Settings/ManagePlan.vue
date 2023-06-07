@@ -99,11 +99,11 @@ charges_rate: 0
 
 // funtions
 const editPlan = (plan: any) => {
-  console.log(plan)
+  // console.log(plan)
   modalId.value = "edit_plan"  
 } 
 const sendData = () => {
-  console.log(transfer.value)
+  // console.log(transfer.value)
 }
 
 </script>

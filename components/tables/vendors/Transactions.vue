@@ -14,7 +14,8 @@
       <table class="table-auto w-full mx-auto">
         <thead class="w-full">
           <tr>
-            <th class="bg-[#f7f7f7] text-base font-medium px-6 py-4" v-for="(header, index) in headers" :class="index == 0 && 'text-left'">
+            <th class="bg-[#f7f7f7] text-base font-medium px-6 py-4" v-for="(header, index) in headers"
+              :class="index == 0 && 'text-left'">
               {{ header.title }}
             </th>
           </tr>
@@ -39,8 +40,8 @@
 </template>
 
 <script setup lang="ts">
-import { useRepositories } from "~/repositories/useRepositories";
 import { formatDate, formatMoney } from "~/controllers/utils"
+import { useToast } from "vue-toastification";
 
 const headers = ref([
   { title: "Reference ID" },
@@ -51,22 +52,25 @@ const headers = ref([
 ]);
 
 const transactions: Ref<any[]> = ref([]);
-
-const { vendorsRepo } = useRepositories();
-
-
-
+const { getVendorTransactions } = useApi();
 const loading: Ref<boolean> = ref(false);
 const route = useRoute()
+const toast = useToast()
+
 const fetchAllTransactions = async () => {
   loading.value = true;
 
-  const response = await vendorsRepo.getVendorTransactions(route.params.id as (string | number)).finally(() => {
-    loading.value = false;
-  });
+  const { data, error } = await useAsyncData(() => getVendorTransactions(route.params.id as (string | number)))
 
-  console.log('FENDORRRR',response.data) 
-  transactions.value = response?.data.splice(0, 8)
+  if (data) {
+    loading.value = false;
+
+  }
+
+  else if (error)
+    toast.error('Something went wrong')
+
+  transactions.value = data.value?.data.splice(0, 8)
 
 }
 

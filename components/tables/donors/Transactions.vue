@@ -27,7 +27,7 @@
             <td>{{ transaction.reference }}</td>
             <td>{{ formatMoney(transaction.amount) }}</td>
             <td class="">{{ transaction.status }}</td>
-            <td class="">{{formatDate(transaction.createdAt)}}</td>
+            <td class="">{{ formatDate(transaction.createdAt) }}</td>
             <td>
               <span class="text-xs px-2 py-[.35rem] rounded-2xl "
                 :class="transaction.transaction_type == 'approval' ? ' text-[#337138] bg-[#D1F7C4]' : ' text-[#FF4B55] bg-[#FFCDC7]'">
@@ -47,9 +47,10 @@
 
 <script setup lang="ts">
 import Swal from 'sweetalert2/dist/sweetalert2.js'
-
-import { useRepositories } from "~/repositories/useRepositories";
 import { formatDate, formatMoney } from "~/controllers/utils"
+import { useToast } from 'vue-toastification';
+import { UpdateStatus } from '~/composables/useApi';
+
 const headers = ref([
   { title: "Reference ID" },
   { title: "Amount" },
@@ -71,24 +72,28 @@ const swal = Swal.mixin({
   buttonsStyling: false
 })
 
+const toast = useToast()
 const route = useRoute()
 const loading: Ref<boolean> = ref(false);
-  const { donorsRepo } = useRepositories();
+
+const { getDonorTransactions, approveRejectRequest } = useApi();
 
 
 const fetchTransactions = async () => {
   loading.value = true;
+  const { data, error } = await useAsyncData('all-donor-trans', () => getDonorTransactions(route.params.id))
 
- const response = await donorsRepo.getDonorTransactions(route.params.id).finally(() => {
-    loading.value = false
-  });
- 
-  // console.log(response) 
-  transactions.value = response?.data.splice(0, 8)
- 
+  if (data)
+    transactions.value = data.value.data.splice(0, 8)
+
+  else if (error)
+    toast.error('Error Fetching')
+
+  loading.value = false;
+
 }
 
-onBeforeMount(()=> {
+onBeforeMount(() => {
   fetchTransactions()
 })
 
@@ -124,9 +129,17 @@ const handleChangeStatus = (data: UpdateStatus) => {
 }
 
 const handleUpdateStatus = async (data: UpdateStatus) => {
-  // console.table('DATAAA', data)
-  await donorsRepo.approveRejectRequest(data)
-  fetchDonors()
+  const { data: res, error } = await useAsyncData(() => approveRejectRequest(route.params.id, data))
+
+  if (data) {
+    toast.success('success')
+    fetchTransactions()
+  }
+
+  else if (error)
+    toast.error('Error Fetching')
+
+  loading.value = false;
 }
 
 </script>
@@ -136,10 +149,11 @@ const handleUpdateStatus = async (data: UpdateStatus) => {
   box-shadow: 0px 3.17px 19.8125px rgba(174, 174, 192, 0.15);
 }
 
-table > tbody > tr > td {
-  @apply align-middle text-center  mx-auto   text-base px-6 py-4;
+table>tbody>tr>td {
+  @apply align-middle text-center mx-auto text-base px-6 py-4;
 }
-table > tbody > tr > td:first-child {
+
+table>tbody>tr>td:first-child {
   @apply text-left;
 }
 </style>
