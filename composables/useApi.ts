@@ -25,9 +25,9 @@ const request = (method: any, url: string, requestData?: any, params?: any) =>
 
       const toast = Toast.useToast();
       const authStore = useAuthStore();
-  
+
       const isMaybeNetworkError = !response.body
-  
+
       if (response) {
         const errStatus = response?.status
         switch (errStatus) {
@@ -44,7 +44,7 @@ const request = (method: any, url: string, requestData?: any, params?: any) =>
           //     redirect: router.currentRoute.fullPath
           //   }
           // })
-  
+
           // break
           case 403:
             break
@@ -58,7 +58,7 @@ const request = (method: any, url: string, requestData?: any, params?: any) =>
             toast.error('Server is unavailable at the moment. Please try again later')
             return
         }
-      
+
         toast.error(response?.statusText)
         // Promise.reject(error)  
         return
@@ -105,6 +105,10 @@ export interface LoginCredentials {
 
 export const useApi = () => {
   return {
+    login(payload: LoginCredentials) {
+      return request('POST', '/admin/auth/login', payload)
+    },
+
     getAllDonors() {
       return request("GET", '/admin/donors');
     },
@@ -162,8 +166,30 @@ export const useApi = () => {
       return request('GET', '/admin/campaigns')
     },
 
-    login(payload: LoginCredentials) {
-      return request('POST', '/admin/auth/login', payload)
+    getCampaign(id: string | number) {
+      return request('GET', `/admin/campaign-info/${id}`)
+    },
+
+    getCampaignVendors(orgID: string | number, campaignID: string | number) {
+      return request('GET', `/organisations/${orgID}/campaigns/${campaignID}/vendors`)
+    },
+
+    getCampaignComplaints(orgID: string | number, campaignID: string | number) {
+      return request('GET', `/organisations/${orgID}/campaigns/${campaignID}/complaints`)
+    },
+
+    getSingleNGO(orgID: string | number) {
+      return request('GET', `/ngos/${orgID}`)
+    },
+
+    getResolvedComplaints(orgID: string | number, campaignID: string | number, complaintID: string | number) {
+      return request('GET', `/organisations/${orgID}/campaigns/${campaignID}/complaints/${complaintID}/resolve`)
+    },
+
+    getComplaint(orgID: string | number, campaignID: string | number, complaintID: string | number) {
+      return request('GET', `/organisations/${orgID}/campaigns/${campaignID}/complaints/${complaintID}`)
     }
+
+
   }
 }

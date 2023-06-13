@@ -98,3 +98,5 @@ export const formatDate = (dateString: string) => {
 
 //   return { formattedDate, formattedTime, formattedFullDate };
 // };
+
+export const snakeToCamelCase = (s) =>  s.toLowerCase().replace(/(_\w)/g, (w) => w.toUpperCase().substr(1))

@@ -23,7 +23,7 @@
 
         <tbody>
           <tr v-for="(campaign, index) in campaigns" :key="index" class="cursor-pointer"
-            :class="index % 2 != 0 && 'bg-[#FCFCFE]'">
+            :class="index % 2 != 0 && 'bg-[#FCFCFE]'" @click.stop="$router.push(`/campaigns/${campaign.id}`)">
             <td>
               <nuxt-link :to="`campaigns/${campaign.id}`">
                 {{ campaign.title }}

@@ -1,6 +1,6 @@
 <template>
   <div class="relative flex min-h-screen justify-between">
-    <div class="w-72 min-h-screen bg-[#F7F9FB]">
+    <div class="w-64 min-h-screen bg-[#F7F9FB]">
       <PartialsSideBar />
     </div>
 

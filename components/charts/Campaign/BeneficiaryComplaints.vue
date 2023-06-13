@@ -65,7 +65,7 @@
       Beneficiaries
     </h2>
     <div
-      v-for="(complain, index) in complaints"
+      v-for="(item, index) in complaints.Beneficiaries"
       :key="index"
       class="my-1 flex h-16 w-full items-center justify-between p-3 text-sm font-medium"
       :class="index % 2 !== 0 ? 'bg-[#FCFCFE]' : 'bg-white'"
@@ -76,7 +76,7 @@
           alt="complain"
           class="block"
         />
-        <h2> {{ complain.name }} </h2>
+        <h2> {{ item.first_name }} {{ item.last_name }}</h2>
       </div>
       
       <div class="w-44">
@@ -98,19 +98,11 @@ const filters= ref( {
   Age: ["20+", "30-60", "60-100"],
 })
 const  Options=ref( "")
-const complaints = ref( [
-  {
-    name: "James Clear",
-  },
-  {
-    name: "Adams Smith",
-  },
-  {
-    name: "Samson Realgreat",
-  }, 
-])
 
-onBeforeMount(() => {filters.value[selected.value][0]}) 
+defineProps(['complaints'])
+
+
+// onBeforeMount(() => {filters.value[selected.value][0]}) 
 </script>
 
 <style lang="scss" scoped>
