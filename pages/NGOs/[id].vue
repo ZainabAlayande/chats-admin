@@ -135,7 +135,7 @@
 </template>
 
 <script setup lang="ts">
-import { useToast } from 'vue-toastification';
+import { useToast } from '~/composables/useToast'
 
 const loading: Ref<boolean> = ref(false);
 const route = useRoute()  

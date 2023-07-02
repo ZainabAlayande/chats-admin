@@ -41,7 +41,7 @@
 
 <script setup lang="ts">
 import { formatDate, formatMoney } from "~/controllers/utils"
-import { useToast } from "vue-toastification";
+import { useToast } from '~/composables/useToast'
 
 const headers = ref([
   { title: "Reference ID" },

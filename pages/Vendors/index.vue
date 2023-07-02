@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import Swal from 'sweetalert2/dist/sweetalert2.js'
-import { useToast } from "vue-toastification";
+import { useToast } from '~/composables/useToast'
 import { UpdateStatus, Vendor } from '~/composables/useApi';
 
 const modalId = ref('')

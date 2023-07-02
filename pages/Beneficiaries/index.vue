@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { useToast } from "vue-toastification";
+import { useToast } from '~/composables/useToast'
 import { Beneficiary } from "~/composables/useApi";
 
 const modalId = ref('')
@@ -73,5 +73,9 @@ const handleAddBeneficiary = async (payload: Beneficiary) => {
 onBeforeMount(() => {
   fetchBeneficiaries()
 })
+
+// onMounted(()=> {
+//   toast.success('YESSS')
+// })
 </script>
  

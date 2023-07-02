@@ -48,7 +48,7 @@
 <script setup lang="ts">
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import { formatDate, formatMoney } from "~/controllers/utils"
-import { useToast } from 'vue-toastification';
+import { useToast } from '~/composables/useToast'
 import { UpdateStatus } from '~/composables/useApi';
 
 const headers = ref([

@@ -58,7 +58,7 @@
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import { formatMoney } from "~/controllers/utils"
 import { UpdateStatus } from "~/rep";
-import { useToast } from 'vue-toastification';
+import { useToast } from '~/composables/useToast'
 
 const headers = ref([
   { title: "Name" },

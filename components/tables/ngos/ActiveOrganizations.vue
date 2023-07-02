@@ -55,7 +55,7 @@
 
 <script setup lang="ts">
 import { formatMoney } from "~/controllers/utils"
-import { useToast } from "vue-toastification";
+import { useToast } from '~/composables/useToast'
 
 const headers = ref([
   { title: "Name" },

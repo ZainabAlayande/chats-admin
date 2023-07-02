@@ -58,7 +58,7 @@
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import { formatMoney, formatDate } from "~/controllers/utils"
 import { UpdateApprovalStatus } from '~/composables/useApi';
-import { useToast } from 'vue-toastification';
+import { useToast } from '~/composables/useToast'
 const headers = ref([
   { title: "Donor" },
   { title: "Amount" },

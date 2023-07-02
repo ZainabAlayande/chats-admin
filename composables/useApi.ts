@@ -35,7 +35,7 @@ const request = (method: any, url: string, requestData?: any, params?: any) =>
             // toast.error(response?.data?.message)
             return
           case 401:
-            // toast.error(error.response?.data?.message)
+            response?.data?.message ? toast.error(response?.data?.message) : null
             authStore.logout()
             return
           // router.replace({
